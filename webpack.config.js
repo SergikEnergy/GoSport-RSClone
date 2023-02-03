@@ -19,19 +19,19 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(c|sa|sc)ss$/i,
-        // eslint-disable-next-line prettier/prettier
-        use: [devMode ? 'style-loader' : MiniCssExtractPlugin.loader, 'css-loader'],
-      },
-      {
-        test: /\.ts$/i,
-        use: ['ts-loader'],
-        include: [path.resolve(__dirname, './src')],
-      },
-      {
         test: /\.html$/,
         use: 'html-loader',
       },
+      {
+        test: /\.(c|sa|sc)ss$/i,
+        use: [devMode ? 'style-loader' : MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+      },
+      {
+        test: /\.[tj]s$/i,
+        use: ['ts-loader'],
+        include: [path.resolve(__dirname, './src')],
+      },
+
       {
         test: /\.m?js$/,
         exclude: /(node_modules|bower_components)/,
@@ -51,31 +51,33 @@ module.exports = {
       },
       {
         test: /\.(?:ico|gif|png|jpg|jpeg|webp|svg)$/i,
-        use: [
-          {
-            loader: 'image-webpack-loader',
-            options: {
-              mozjpeg: {
-                progressive: true,
+        use: devMode
+          ? []
+          : [
+              {
+                loader: 'image-webpack-loader',
+                options: {
+                  mozjpeg: {
+                    progressive: true,
+                  },
+                  // optipng.enabled: false will disable optipng
+                  optipng: {
+                    enabled: false,
+                  },
+                  pngquant: {
+                    quality: [0.65, 0.9],
+                    speed: 4,
+                  },
+                  gifsicle: {
+                    interlaced: false,
+                  },
+                  // the webp option will enable WEBP
+                  webp: {
+                    quality: 75,
+                  },
+                },
               },
-              // optipng.enabled: false will disable optipng
-              optipng: {
-                enabled: false,
-              },
-              pngquant: {
-                quality: [0.65, 0.9],
-                speed: 4,
-              },
-              gifsicle: {
-                interlaced: false,
-              },
-              // the webp option will enable WEBP
-              webp: {
-                quality: 75,
-              },
-            },
-          },
-        ],
+            ],
         type: 'asset/resource',
         generator: {
           filename: 'img/[name][ext]',
@@ -87,18 +89,18 @@ module.exports = {
     filename: 'index.js',
     path: path.resolve(__dirname, './dist'),
     clean: true,
-    assetModuleFilename: 'assets/[hash][ext]',
+    assetModuleFilename: 'assets/[name][ext]',
   },
 
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', 'jsx', 'json'],
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, './src/index.html'),
       filename: 'index.html',
     }),
-    new CleanWebpackPlugin(),
+    new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
     new EslintPlugin({ extensions: 'ts' }),
     new MiniCssExtractPlugin({
       filename: 'styles.css',
