@@ -1,0 +1,1 @@
+#### folder for functions remder, update view and DOM manipulations
