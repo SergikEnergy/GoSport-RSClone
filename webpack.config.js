@@ -91,7 +91,9 @@ module.exports = {
     clean: true,
     assetModuleFilename: 'assets/[name][ext]',
   },
-
+  devServer: {
+    hot:true,
+  },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
   },
