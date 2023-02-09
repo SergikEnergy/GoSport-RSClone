@@ -1,8 +1,9 @@
+
 import './styles/styles1.scss';
-const img = require('./assets/img/test-icon.png');
-
+import router from './MVC/model/Routing/router'
 console.log('start');
+// Listen on hash change:
+window.addEventListener('hashchange',router)
 
-document.body.innerHTML = `
-<img src='${img}' alt='test icon'>
-`;
+// Listen on page load:
+window.addEventListener('DOMContentLoaded', router);
