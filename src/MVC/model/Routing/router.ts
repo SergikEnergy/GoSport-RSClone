@@ -1,5 +1,6 @@
 import iRoute from "./TStype/iRoute";
 import main from '../../view/pages/main/main'
+import { afterRenderMainPage } from "../../view/pages/main/main";
 import notFound from '../../view/pages/notFound/404';
 import prod from '../../view/pages/prod/prod';
 //Object with routing pathes and render functions like a value
@@ -17,6 +18,7 @@ const router = async () => {
 //Here need to render the footer and header like on example:
 if (content !=undefined){
   await pageRender(content);
+  await afterRenderMainPage();
 }
 }
 export default router
