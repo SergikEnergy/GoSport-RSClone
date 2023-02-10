@@ -1,0 +1,245 @@
+body {
+  font-family: "Poppins", sans-serif;
+  color: #0c0c0c;
+  background-color: #ffffff;
+}
+
+.layout_padding {
+  padding: 75px 0;
+}
+
+.layout_padding2 {
+  padding: 45px 0;
+}
+
+.layout_padding2-top {
+  padding-top: 45px;
+}
+
+.layout_padding2-bottom {
+  padding-bottom: 45px;
+}
+
+.layout_padding-top {
+  padding-top: 75px;
+}
+
+.layout_padding-bottom {
+  padding-bottom: 75px;
+}
+
+.heading_container {
+  display: flex;
+}
+.heading_container h2 {
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.heading_container.heading_center {
+  justify-content: center;
+  text-align: center;
+}
+
+.hero {
+  background-color: #111112;
+  position: relative;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 80%;
+  height: 100%;
+  background-image: url("../../../../../assets/img/slider-bg.png");
+  background-size: 100% 100%;
+  z-index: 2;
+}
+.hero .row {
+  align-items: center;
+  height: 100%;
+}
+.hero .detail-container {
+  display: flex;
+  justify-content: center;
+}
+.hero .hero__desription {
+  color: #f6f8f7;
+  position: relative;
+  z-index: 3;
+}
+.hero .hero__desription h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 25px;
+}
+.hero .hero__desription p {
+  margin-bottom: 25px;
+}
+.hero .hero__desription .hero__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -5px;
+}
+.hero .hero__desription .hero__buttons a {
+  width: 165px;
+  text-align: center;
+  margin: 5px;
+}
+.hero .hero__desription .hero__buttons .hero__buttons-type1 {
+  display: inline-block;
+  padding: 8px 0;
+  background-color: #d33d33;
+  border: 1px solid #d33d33;
+  color: #ffffff;
+  border-radius: 0px;
+  transition: all 0.3s;
+}
+.hero .hero__desription .hero__buttons .hero__buttons-type1:hover {
+  background-color: transparent;
+  color: #d33d33;
+}
+.hero .hero__desription .hero__buttons .hero__buttons-type2 {
+  display: inline-block;
+  padding: 8px 0;
+  background-color: #ffffff;
+  border: 1px solid #ffffff;
+  color: #000000;
+  border-radius: 0px;
+  transition: all 0.3s;
+}
+.hero .hero__desription .hero__buttons .hero__buttons-type2:hover {
+  background-color: transparent;
+  color: #ffffff;
+}
+.hero .games-list {
+  margin-top: 3rem;
+  display: flex;
+  align-items: center;
+}
+.hero .games-list__item {
+  height: 120px;
+  width: 110px;
+  text-decoration: none;
+  text-align: center;
+  margin: 5px;
+  color: #d33d33;
+}
+.hero .games-list figure figcaption {
+  font-size: 1rem;
+  padding-top: 7px;
+}
+.hero .games-list figure img {
+  transition: top 0.2s;
+  width: 64px;
+  height: 64px;
+  position: relative;
+  top: -20px;
+  animation: bounce 1s 3;
+}
+@keyframes bounce {
+  0% {
+    top: -30px;
+    -webkit-animation-timing-function: ease-in;
+  }
+  40% {
+    top: -20px;
+  }
+  50% {
+    top: -10px;
+    -webkit-animation-timing-function: ease-out;
+  }
+  55% {
+    top: -5px;
+    -webkit-animation-timing-function: ease-in;
+  }
+  65% {
+    top: 5px;
+    -webkit-animation-timing-function: ease-out;
+  }
+  75% {
+    top: -10px;
+    -webkit-animation-timing-function: ease-in;
+  }
+  85% {
+    top: -15px;
+    -webkit-animation-timing-function: ease-out;
+  }
+  95% {
+    top: -20px;
+    -webkit-animation-timing-function: ease-in;
+  }
+  100% {
+    top: -30px;
+    -webkit-animation-timing-function: ease-in;
+  }
+}
+.hero .games-list figure:hover img {
+  top: 10px;
+}
+.hero .hero__images {
+  background-color: #ffffff;
+  position: relative;
+  overflow: hidden;
+}
+.hero .hero__images .carousel-inner__images {
+  margin: 0;
+}
+.hero .hero__images .carousel-inner__images img {
+  width: 100%;
+}
+.hero #carousel {
+  position: unset;
+  width: 100%;
+}
+.hero .carousel-indicators.carousel__indicators-custom {
+  width: 50px;
+  height: 100%;
+  flex-direction: column;
+  align-items: flex-end;
+  left: initial;
+  right: 25px;
+  margin: 0;
+}
+.hero .carousel-indicators.carousel__indicators-custom li {
+  width: 25px;
+  height: 25px;
+  border-radius: 100%;
+  opacity: 1;
+  background-color: rgba(222, 231, 227, 0.6588235294);
+  margin: 0;
+}
+.hero .carousel-indicators.carousel__indicators-custom li.active {
+  background-color: rgba(32, 32, 34, 0.8784313725);
+}
+.hero .carousel-indicators.carousel__indicators-custom li:hover {
+  cursor: pointer;
+}
+.hero .carousel-indicators.indicator-2 {
+  width: 50px;
+  height: 50px;
+  top: 50%;
+  left: 46%;
+  margin: 0;
+  transform: translateY(-50%);
+  background-color: #d33d33;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+}
+.hero .carousel-indicators.indicator-2 li {
+  text-indent: unset;
+  border-radius: 100%;
+  opacity: 1;
+  display: none;
+  color: #ffffff;
+  border: none;
+  width: auto;
+  height: auto;
+  background-color: transparent;
+}
+.hero .carousel-indicators.indicator-2 li.active {
+  display: block;
+  border: none;
+  border: #000000;
+}
