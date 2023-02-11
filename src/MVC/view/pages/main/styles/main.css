@@ -135,7 +135,7 @@ body {
   height: 64px;
   position: relative;
   top: -20px;
-  animation: bounce 1s 3;
+  animation: bounce .8s 3;
 }
 @keyframes bounce {
   0% {
