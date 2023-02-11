@@ -1,6 +1,7 @@
 import './styles/main.scss';
 import { createElement } from './mvc/view/template/createElement';
 import { renderHeader } from './mvc/view/header/header';
+import { renderFooter } from './mvc/view/footer/footer';
 import router from './mvc/model/Routing/router';
 console.log('start');
 
@@ -14,3 +15,5 @@ window.addEventListener('DOMContentLoaded', router);
 
 
 createElement('main', body);
+
+renderFooter(body);
