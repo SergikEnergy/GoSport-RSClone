@@ -18,8 +18,10 @@ export const renderHeader = (parent: HTMLElement):void => {
   arrow.addEventListener('click', () => {
     userList.classList.toggle('active');
   });
-  const userProfile = createElement('li', userList, 'user-list__item');
+  const linkUserProfile = createElement('a',userList,'user-list__link')
+  const userProfile = createElement('li', linkUserProfile, 'user-list__item');
   userProfile.textContent = 'Profile';
-  const userSingOut = createElement('li', userList, 'user-list__item');
+  const linkUserSignOut = createElement('a',userList,'user-list__link')
+  const userSingOut = createElement('li', linkUserSignOut, 'user-list__item');
   userSingOut.textContent = 'Sing out';
 }
