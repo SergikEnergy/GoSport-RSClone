@@ -1,0 +1,15 @@
+.button_lang {
+  background-color: inherit;
+  @include font (2rem, 2rem);
+  color: inherit;
+  cursor: pointer;
+  transition: .5s ease;
+
+  &:hover {
+    color: $color-yellow;
+  }
+
+  @include media-tablet {
+    @include font (1.6rem, 1.8rem);
+  }
+}
