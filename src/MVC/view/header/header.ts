@@ -1,8 +1,7 @@
 import { createElement } from '../template/createElement';
 
 export const renderHeader = (parent: HTMLElement):void => {
-  const header = createElement('header', parent, 'header');
-  const wrapper = createElement('div', header, 'wrapper header__wrapper');
+  const wrapper = createElement('div', parent, 'wrapper header__wrapper');
   const logo = createElement('a', wrapper, 'logo');
   createElement('span', logo, 'logo__image');
   const logoText = createElement('span', logo, 'logo__text');

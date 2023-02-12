@@ -1,8 +1,7 @@
 import { createElement } from '../template/createElement';
 
 export const renderFooter = (parent: HTMLElement):void => {
-  const footer = createElement('footer', parent, 'footer');
-  const wrapper = createElement('div', footer, 'wrapper footer__wrapper');
+  const wrapper = createElement('div', parent, 'wrapper footer__wrapper');
   const yearBlock = createElement('div', wrapper,'year-block');
   const symbol = createElement('span', yearBlock);
   symbol.textContent = '©';
