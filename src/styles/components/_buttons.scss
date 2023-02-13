@@ -13,3 +13,21 @@
     @include font (1.6rem, 1.8rem);
   }
 }
+
+.button_welcome {
+  background-color: transparent;
+  @include font (2rem, 2rem, 600);
+  border: 2px solid $color-white;
+  border-radius: 20px;
+  padding: 10px 30px;
+  cursor: pointer;
+  transition: .5s ease;
+
+  &:hover {
+    background-color: $color-yellow;
+  }
+
+  @include media-mobile {
+    @include font (1.6rem, 1.8rem, 700);
+  }
+}
