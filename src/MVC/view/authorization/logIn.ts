@@ -1,31 +1,30 @@
 import { createElement } from '../template/createElement';
-import { IGetUser, IGetError, ILogIn } from './authorization.types';
+import { ILogIn } from './authorization.types';
+// import { getErrorOrUser } from './authorization.types';
 
-const logUrl = 'http://localhost:5000/api/login';
-
-class LogIn {
+export default class LogIn {
   url: string;
 
   constructor(logUrl: string) {
     this.url = logUrl;
   }
 
-  renderLoginForm(): void {
-    const parentElement = document.querySelector('body') as HTMLElement;
-    const containerForms = createElement('div', parentElement, 'container-forms');
+  renderLoginForm(parent: HTMLElement): void {
+    const parentElement = parent;
 
-    const formLogIn = createElement('form', containerForms, 'login-form');
+    const formLogIn = createElement('form', parentElement, 'login-form');
     formLogIn.setAttribute('action', '#');
     formLogIn.setAttribute('id', 'loginToAccount');
 
-    const formRegister = createElement('form', containerForms, 'create-form');
+    const formRegister = createElement('form', parentElement, 'create-form');
     formRegister.setAttribute('action', '#');
     formRegister.setAttribute('id', 'createAccount');
 
     const loginTitle = createElement('h2', formLogIn, 'login-form__title');
     loginTitle.textContent = 'Login';
 
-    const loginFormMessage = createElement('div', formLogIn, 'login-form__message login-form__message_error');
+    const loginFormMessage = createElement('div', formLogIn, 'login-form__message login-form__message_error form_hidden');
+    loginFormMessage.setAttribute('id', 'errorGeneral');
     loginFormMessage.textContent = 'Incorrect username/password';
 
     const inputGroupName = createElement('div', formLogIn, 'login-form__input-group');
@@ -44,8 +43,8 @@ class LogIn {
     inputPassword.setAttribute('placeholder', 'Input password');
     inputPassword.setAttribute('id', 'password');
     inputPassword.setAttribute('type', 'password');
-    const errorPassword = createElement('div', inputGroupPassword, 'login-form__input-error-message');
-    errorPassword.classList.add('form_hidden');
+    const errorPassword = createElement('div', inputGroupPassword, 'login-form__input-error-message form_hidden');
+    errorPassword.setAttribute('id', 'passwordError');
     errorPassword.textContent = 'Incorrect password';
 
     const loginButton = createElement('button', formLogIn, 'form__button');
@@ -62,46 +61,49 @@ class LogIn {
 
   checkEmpty(elem: HTMLInputElement, errorBlock: HTMLElement): boolean {
     if (elem.value === '') {
-      errorBlock.textContent = `${elem} shouldn't be empty`;
+      errorBlock.textContent = `Field name shouldn't be empty`;
       return false;
     }
     return true;
   }
 
-  checkPasswordLength(elem: HTMLInputElement, errorElement: HTMLElement): boolean {
-    const password: string = elem.value;
-    if (password.length < 4 && password.length > 10) {
+  checkPasswordLength(length: number, errorElement: HTMLDivElement): boolean {
+    if (!(length > 4 && length < 10)) {
       errorElement.textContent = `Password should contain more 4 and less 10 symbols`;
       return false;
     }
     return true;
   }
 
-  async checkNamePass(name: string, pass: string) {
+  async getLogData(name: string, pass: string) {
     try {
-      let isValid = false;
-      const checkUser = await fetch(`${this.url}+/login`, {
-        method: 'GET',
-        body: JSON.stringify({
-          nickName: name,
-          password: pass,
-        }),
+      const body: ILogIn = {
+        nickName: name,
+        password: pass,
+      };
+
+      const getUser = await fetch(`${this.url}`, {
+        method: 'POST',
+        body: JSON.stringify(body),
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json;charset=utf-8',
         },
       });
-      const dataResponse = await checkUser.json();
-      if (dataResponse && dataResponse.date) {
-        return isValid;
-      }
-      if (dataResponse && dataResponse.nickName) {
-        isValid = true;
-        return isValid;
-      }
+      const data = await getUser.json();
+      return data;
     } catch (err) {
-      throw new Error('failed validation name/password');
+      return {
+        error: err,
+        message: 'failed getting login response',
+      };
+    }
+  }
+  renderPasswordNameError(error: string, errorBlock: HTMLElement) {
+    if (error === 'password') {
+      errorBlock.textContent = 'Incorrect password';
+    }
+    if (error === 'userName') {
+      errorBlock.textContent = `User didn't find, input another user name, please`;
     }
   }
 }
-
-export default new LogIn(logUrl);

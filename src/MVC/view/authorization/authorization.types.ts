@@ -25,7 +25,10 @@ export interface IGetUser extends ILogIn {
   };
   avatar: string;
 }
+
 export interface IGetError {
   error: string;
   data: string;
 }
+
+export type getErrorOrUser = ICreateUser | IGetError;

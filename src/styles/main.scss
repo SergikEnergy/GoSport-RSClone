@@ -1,12 +1,13 @@
-@import "abstract/variables";
-@import "abstract/mixins";
+@import 'abstract/variables';
+@import 'abstract/mixins';
 
-@import "base/fonts";
-@import "base/normalize";
-@import "base/base";
+@import 'base/fonts';
+@import 'base/normalize';
+@import 'base/base';
 
-@import "../../src/mvc/view/header/header";
-@import "../../src/mvc/view/footer/footer";
-@import "../../src/mvc/view/welcome-popup/welcome-popup";
+@import '../../src/mvc/view/header/header';
+@import '../../src/mvc/view/footer/footer';
+@import '../../src/mvc/view/welcome-popup/welcome-popup';
+@import '../../src/mvc/view/authorization/authorization';
 
-@import "components/buttons";
+@import 'components/buttons';
