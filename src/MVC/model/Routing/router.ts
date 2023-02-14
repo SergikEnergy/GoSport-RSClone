@@ -4,7 +4,9 @@ import notFound from '../../view/pages/notFound/404';
 import prod from '../../view/pages/prod/prod';
 import { renderHeader } from '../../view/header/header';
 import { renderFooter } from '../../view/footer/footer';
+import { renderWelcomePopup } from "../../view/welcome-popup/welcome-popup";
 //Object with routing pathes and render functions like a value
+const body = document.body;
 const routes:iRoute = {
   '/': main,
   '/pr': prod,
@@ -21,6 +23,7 @@ const router = async () => {
 if (header != undefined && footer != undefined) {
   await renderHeader(header);
   await renderFooter(footer);
+  renderWelcomePopup(body);
 }
 //Rendering content
 if (content !=undefined){
