@@ -1,0 +1,117 @@
+html {
+  font-size: 10px;
+  background-color: rgba(13, 91, 110, 0.5);
+}
+.container-forms {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  background-color: rgba(141, 205, 216, 0.7);
+  width: 800px;
+  min-height: 400px;
+  margin: 1%;
+  padding: 0.5%;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+}
+.login-form,
+.create-form {
+  margin: 2%;
+  padding: 1%;
+}
+.login-form:first-child,
+.create-form:first-child {
+  margin-top: 0;
+}
+.login-form:last-child,
+.create-form:last-child {
+  margin-bottom: 0;
+}
+.login-form__title,
+.create-form__title {
+  margin-bottom: 3%;
+  text-align: center;
+  color: #252c6a;
+}
+.login-form__message,
+.create-form__message {
+  text-align: center;
+  margin-bottom: 2%;
+}
+.login-form__message_success,
+.create-form__message_success {
+  color: #4bb544;
+}
+.login-form__message_error,
+.create-form__message_error {
+  color: #c33;
+}
+.login-form__input-group .create-form__input-group {
+  margin-bottom: 3%;
+}
+.login-form__input,
+.create-form__input {
+  display: block;
+  width: 100%;
+  padding: 2%;
+  box-sizing: border-box;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  outline: none;
+  background: #eee;
+  transition: background 0.3s, border-color 0.3s;
+  margin-bottom: 1.5%;
+}
+.login-form__input:focus,
+.create-form__input:focus {
+  border-color: #6ea2e0;
+  background-color: #fff;
+}
+.login-form__input_error,
+.create-form__input_error {
+  color: #c33;
+  border-color: #c33;
+}
+.login-form__input-error-message,
+.create-form__input-error-message {
+  margin-top: 1%;
+  font-size: 1.2rem;
+  color: #c33;
+}
+.form__button {
+  width: 100%;
+  padding: 1rem 2rem;
+  margin-top: 2%;
+  font-weight: bold;
+  font-size: 1.9rem;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
+  background-color: #6ea2e0;
+}
+.form__button:disabled {
+  cursor: none;
+  background-color: #3f3f3f;
+  color: #1f1d1d;
+}
+.form__button:hover {
+  background-color: #191718;
+}
+.form__button:active {
+  transform: scale(0.95);
+}
+.form__text {
+  text-align: center;
+}
+.form__link {
+  color: #252c6a;
+  text-decoration: none;
+  cursor: pointer;
+}
+.form__link:hover {
+  text-decoration: underline;
+}
