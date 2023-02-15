@@ -1,6 +1,6 @@
 import './styles/main.css';
 import './styles/responsive-main.css';
-
+import { fetchEventByKind } from './mainQueryDB';
 function mainPage(htmlElem: HTMLElement): string {
   const view = `
   <section class="hero position-relative">
@@ -77,7 +77,7 @@ function mainPage(htmlElem: HTMLElement): string {
   return (htmlElem.innerHTML = view);
 }
 
-export function afterRenderMainPage(): void {
+export function eventsAfterRenderMainPage(): void {
   const carouselContainerElem: HTMLElement | null = document.querySelector('.carousel-indicators');
   const carouselImageContainerElem = document.querySelectorAll('.carousel-item');
   const carouselItemElem = document.querySelectorAll('.carousel__indicators-item');
@@ -96,7 +96,12 @@ export function afterRenderMainPage(): void {
       }
     }
   });
+  const url:URL = new URL('events','http://127.0.0.1:5000/api/');
+const footballEvent = fetchEventByKind(url,'football').then(res=> {
+  console.log(res)
+})
 
+console.log("🚀 ~ file: main.ts:101 ~ footballEvent ~ footballEvent", footballEvent)
   function removeActiveClass(element: Element): void {
     element.classList.remove('active');
   }
