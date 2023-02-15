@@ -1,6 +1,6 @@
 import iRoute from "./TStype/iRoute";
 import main from '../../view/pages/main/main'
-import { afterRenderMainPage } from "../../view/pages/main/main";
+import { eventsAfterRenderMainPage } from "../../view/pages/main/main";
 import notFound from '../../view/pages/notFound/404';
 import prod from '../../view/pages/prod/prod';
 import { renderHeader } from '../../view/header/header';
@@ -26,7 +26,7 @@ if (header != undefined && footer != undefined) {
 //Rendering content
 if (content !=undefined){
   await pageRender(content);
-  await afterRenderMainPage();
+  await eventsAfterRenderMainPage();
 }
 }
 export default router
