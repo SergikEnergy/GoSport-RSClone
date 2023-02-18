@@ -19,7 +19,8 @@ export const renderWelcomePopup = (parent: HTMLElement): void => {
     window.setTimeout(async () => {
       welcomePopup.classList.add('form_hidden');
       formContainer.classList.remove('form_hidden');
-      await authorization(formContainer);
+
+      authorization(formContainer);
     }, 1050);
   });
 };

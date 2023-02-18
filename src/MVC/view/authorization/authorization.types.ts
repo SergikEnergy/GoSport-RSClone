@@ -4,11 +4,12 @@ export interface ILogIn {
 }
 
 export interface ICreateUser extends ILogIn {
-  passwordConfirm: string;
+  passwordConfirm?: string;
   firstName?: string;
   lastName?: string;
   coach: boolean;
   player: boolean;
+  games?: string[];
 }
 
 export interface IGetUser extends ILogIn {
@@ -18,7 +19,7 @@ export interface IGetUser extends ILogIn {
   events: [string];
   personalData: {
     weight?: number;
-    height: number;
+    height?: number;
     first_name?: string;
     last_name?: string;
     games: [string];
@@ -31,4 +32,12 @@ export interface IGetError {
   data: string;
 }
 
-export type getErrorOrUser = ICreateUser | IGetError;
+export interface IValidateCreate {
+  checkName: boolean;
+  checkPassLength: boolean;
+  comparePass: boolean;
+  checkCoach?: boolean;
+  checkPlayer?: boolean;
+}
+
+export type getErrorOrUser = IGetUser | IGetError;

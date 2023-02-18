@@ -1,5 +1,5 @@
 import { createElement } from '../template/createElement';
-import { ILogIn } from './authorization.types';
+import { ILogIn, IGetUser } from './authorization.types';
 // import { getErrorOrUser } from './authorization.types';
 
 export default class LogIn {
@@ -9,16 +9,12 @@ export default class LogIn {
     this.url = logUrl;
   }
 
-  renderLoginForm(parent: HTMLElement): void {
+  renderForm(parent: HTMLElement): void {
     const parentElement = parent;
 
     const formLogIn = createElement('form', parentElement, 'login-form');
     formLogIn.setAttribute('action', '#');
     formLogIn.setAttribute('id', 'loginToAccount');
-
-    const formRegister = createElement('form', parentElement, 'create-form');
-    formRegister.setAttribute('action', '#');
-    formRegister.setAttribute('id', 'createAccount');
 
     const loginTitle = createElement('h2', formLogIn, 'login-form__title');
     loginTitle.textContent = 'Login';
@@ -105,5 +101,11 @@ export default class LogIn {
     if (error === 'userName') {
       errorBlock.textContent = `User didn't find, input another user name, please`;
     }
+  }
+
+  saveLocalStorage(user: IGetUser) {
+    const userToString = JSON.stringify(user);
+    if (user) window.localStorage.setItem('currentUser', `${userToString}`);
+    else window.localStorage.setItem('currentUser', '');
   }
 }
