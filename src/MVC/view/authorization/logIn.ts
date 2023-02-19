@@ -12,7 +12,9 @@ export default class LogIn {
   renderForm(parent: HTMLElement): void {
     const parentElement = parent;
 
-    const formLogIn = createElement('form', parentElement, 'login-form');
+    const wrapperLogIn = createElement('div', parentElement, 'form-wrapper wrapper_login');
+
+    const formLogIn = createElement('form', wrapperLogIn, 'login-form');
     formLogIn.setAttribute('action', '#');
     formLogIn.setAttribute('id', 'loginToAccount');
 

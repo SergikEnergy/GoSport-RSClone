@@ -15,7 +15,7 @@ $color-form-primary-dark: #191718;
 $color-form-secondary: #252c6a;
 $color-form-error: #cc3333;
 $color-form-success: #4bb544;
-$border-form-radius: 5px;
+$border-form-radius: 15px;
 
 .container-forms {
   margin: 0;
@@ -23,15 +23,50 @@ $border-form-radius: 5px;
   align-items: center;
   justify-content: center;
   font-size: 1.8rem;
-  background-color: rgba(275, 133, 0, 0.6);
-  max-width: 550px;
+  background-color: rgba(275, 147, 20, 0.4);
+  max-width: 500px;
   width: 80%;
   min-height: 350px;
+  height: 98%;
   margin: 1%;
-  padding: 0.5%;
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+  padding: 2%;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
   border-radius: $border-form-radius;
+  position: relative;
+  @include media-tablet {
+    max-width: 450px;
+    width: 85%;
+    height: 92%;
+  }
+  @include media-mobile {
+    max-width: 300px;
+    width: 90%;
+    height: 85%;
+  }
 }
+.form-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  transition: all 1s ease-in-out;
+}
+
+.container-forms.active-form .form-wrapper.wrapper_login {
+  transform: scale(0) translate(-300px, 500px);
+}
+
+.container-forms .form-wrapper.wrapper_signup {
+  position: absolute;
+  top: 0;
+  transform: scale(0) translate(200px, -500px);
+}
+
+.container-forms.active-form .form-wrapper.wrapper_signup {
+  transform: scale(1);
+}
+
 .login-form,
 .create-form {
   margin: 2%;

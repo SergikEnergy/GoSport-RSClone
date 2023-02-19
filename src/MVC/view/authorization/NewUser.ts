@@ -4,7 +4,9 @@ import { ICreateUser, IValidateCreate } from './authorization.types';
 
 export default class NewUser extends LogIn {
   renderForm(parent: HTMLElement): void {
-    const formCreate = createElement('form', parent, 'create-form form_hidden');
+    const wrapperSignUp = createElement('div', parent, 'form-wrapper wrapper_signup');
+
+    const formCreate = createElement('form', wrapperSignUp, 'create-form');
     formCreate.setAttribute('action', '#');
     formCreate.setAttribute('id', 'createAccount');
 

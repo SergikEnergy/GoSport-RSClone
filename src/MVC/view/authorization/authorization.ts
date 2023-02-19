@@ -7,7 +7,7 @@ function authorization(parent: HTMLElement) {
   const loginHandler = new LogIn(logUrl);
   loginHandler.renderForm(parent);
 
-  const formLogIn = document.querySelector('.login-form') as HTMLFormElement;
+  // const formLogIn = document.querySelector('.login-form') as HTMLFormElement;
   const nameInput = document.querySelector('#nickName') as HTMLInputElement;
   const passwordInput = document.querySelector('#password') as HTMLInputElement;
   const errorGeneral = document.querySelector('#errorGeneral') as HTMLDivElement;
@@ -77,12 +77,11 @@ function authorization(parent: HTMLElement) {
   });
 
   createUser();
-  const formCreate = document.querySelector('#createAccount') as HTMLFormElement;
+  const containerForms = document.querySelector('.container-forms') as HTMLDivElement;
   redirectCreate.addEventListener('click', (e) => {
     //here will be animation
     e.preventDefault();
-    formLogIn.classList.add('form_hidden');
-    formCreate.classList.remove('form_hidden');
+    containerForms.classList.toggle('active-form');
   });
 
   // return currentUser;

@@ -7,8 +7,8 @@ export default function createUser() {
   const parentElement = document.querySelector('.container-forms') as HTMLDivElement;
   newUser.renderForm(parentElement);
 
-  const formLogIn = document.querySelector('.login-form') as HTMLFormElement;
-  const formCreate = document.querySelector('.create-form') as HTMLFormElement;
+  // const formLogIn = document.querySelector('.login-form') as HTMLFormElement;
+  // const formCreate = document.querySelector('.create-form') as HTMLFormElement;
   const errorGeneral = document.querySelector('#errorGeneralCreate') as HTMLDivElement;
   const nickInput = document.querySelector('#nickNameNew') as HTMLInputElement;
   const nickError = document.querySelector('#errorNameNewLog') as HTMLDivElement;
@@ -115,11 +115,11 @@ export default function createUser() {
     volleyCheck.classList.toggle('checked');
   });
 
+  const containerForms = document.querySelector('.container-forms') as HTMLDivElement;
   redirectLogIn.addEventListener('click', (e) => {
     //here will be animation
     e.preventDefault();
-    formLogIn.classList.remove('form_hidden');
-    formCreate.classList.add('form_hidden');
+    containerForms.classList.toggle('active-form');
   });
 
   createButton.addEventListener('click', async (e) => {
