@@ -137,9 +137,7 @@ export default class NewUser extends LogIn {
   }
 
   comparePassword(password: string, passwordTwo: string): boolean {
-    let isMatch = false;
-    if (password === passwordTwo) isMatch = true;
-    return isMatch;
+    return (password === passwordTwo);
   }
 
   checkEmptyFields(user: IValidateCreate): boolean {
@@ -165,14 +163,14 @@ export default class NewUser extends LogIn {
         avatar: 'defaultAvatar.png',
       };
 
-      const createUser = await fetch(`${this.url}`, {
+      const newUser = await fetch(`${this.url}`, {
         method: 'POST',
         body: JSON.stringify(user),
         headers: {
           'Content-Type': 'application/json;charset=utf-8',
         },
       });
-      const data = await createUser.json();
+      const data = await newUser.json();
       return data;
     } catch (err) {
       return {
