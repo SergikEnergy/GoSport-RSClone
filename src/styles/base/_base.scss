@@ -12,3 +12,13 @@ body {
 main {
   height: 80vh; // потом изменить
 }
+
+h2 {
+  @include font (3rem, 3.2rem, 700);
+  text-align: center;
+}
+
+h3 {
+  @include font (2.6rem, 2.6rem, 700);
+  text-align: center;
+}

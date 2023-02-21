@@ -1,0 +1,117 @@
+.wrapper_events{
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  color: $color-black;
+  padding-top: 3rem;
+}
+
+.filters {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 30%;
+  background-color: $color-orange;
+  border-radius: 15px;
+  padding: 2rem;
+}
+
+.kind-sport {
+  @include font (1.8rem, 2rem);
+  color: $color-white;
+  position: relative;
+}
+
+.kind-sport__select {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $color-main-dark;
+  border-radius: 10px;
+  padding: 1rem;
+  user-select: none;
+  cursor: pointer;
+  transition: .4s;
+
+  &:hover {
+    background-color: $color-background-hover;
+  }
+}
+
+.kind-sport__select_clicked {
+  box-shadow: 0 0 .5em $color-blue;
+}
+
+.caret {
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 8px solid $color-white;
+  transition: .4s;
+}
+
+.caret_rotate {
+  transform: rotate(180deg);
+}
+
+.list-games {
+  display: none;
+  opacity: 0;
+  padding: 1rem;
+  background-color: $color-background-hover;
+  border: 2px solid $color-black;
+  border-radius: 10px;
+  position: absolute;
+  top: 5rem;
+  left: 0;
+  width: 100%;
+  transition: .4s;
+  z-index: 1;
+}
+
+.list-games_active {
+  display: block;
+  opacity: 1;
+}
+
+.list-games__item {
+  padding: .5rem;
+  border-radius: 10px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $color-blue;
+  }
+}
+
+.date-event {
+  @include font (1.6rem, 1.8rem 500);
+  padding: 1rem;
+  border-radius: 10px;
+  background-color: $color-main-dark;
+  color: $color-white;
+
+  &:hover {
+    background-color: $color-background-hover;
+  }
+}
+
+::-webkit-calendar-picker-indicator {
+  background-color: $color-white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.value-players {
+  border: 2px solid $color-main-dark;
+  border-radius: 10px;
+  padding: 1rem;
+  background-color: $color-main-dark;
+  color: $color-white;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $color-background-hover;
+  }
+}
