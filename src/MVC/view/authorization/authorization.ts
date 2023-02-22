@@ -72,7 +72,7 @@ function authorization(parent: HTMLElement) {
       if (!errorGeneral.classList.contains('form_hidden')) {
         errorGeneral.classList.add('form_hidden');
       }
-      loginHandler.saveLocalStorage(response[0]);
+      loginHandler.saveLocalStorage(response[0]._id);
     }
   });
 

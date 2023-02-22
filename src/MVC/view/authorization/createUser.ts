@@ -152,7 +152,7 @@ export default function createUser() {
       if (!errorGeneral.classList.contains('form_hidden')) {
         errorGeneral.classList.add('form_hidden');
       }
-      newUser.saveLocalStorage(getNewUser);
+      newUser.saveLocalStorage(getNewUser._id);
     }
   });
 }

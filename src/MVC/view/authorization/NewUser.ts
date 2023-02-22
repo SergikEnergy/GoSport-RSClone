@@ -81,7 +81,7 @@ export default class NewUser extends LogIn {
 
     const inputGroupGames = createElement('div', formCreate, 'create-form__input-group checkbox-group checkbox-group_games');
     const selectGameText = createElement('p', inputGroupGames, 'games__title');
-    selectGameText.textContent = `Select games which you'll play in`;
+    selectGameText.textContent = `Select games which you'll play in: `;
 
     const subGroupOne = createElement('div', inputGroupGames, 'subGroup group_one');
     const subGroupTwo = createElement('div', inputGroupGames, 'subGroup group_two');
@@ -122,7 +122,7 @@ export default class NewUser extends LogIn {
     inputVolley.setAttribute('type', 'checkbox');
 
     const notes = createElement('div', formCreate, 'form_notes');
-    notes.innerHTML = `Fields with<span class="notes_symbol">*</span>are not required`;
+    notes.innerHTML = `<span class="notes_symbol">*</span>  fields are not required`;
 
     const createButton = createElement('button', formCreate, 'form__button');
     createButton.setAttribute('id', 'createButton');
@@ -137,7 +137,7 @@ export default class NewUser extends LogIn {
   }
 
   comparePassword(password: string, passwordTwo: string): boolean {
-    return (password === passwordTwo);
+    return password === passwordTwo;
   }
 
   checkEmptyFields(user: IValidateCreate): boolean {
@@ -146,19 +146,19 @@ export default class NewUser extends LogIn {
     return true;
   }
 
-  async createUser(userRaw: ICreateUser) {
+  async createUser(userRare: ICreateUser) {
     try {
       //create ful user body
       const user = {
-        coach: userRaw.coach,
-        nickName: userRaw.nickName,
-        password: userRaw.password,
-        player: userRaw.player,
+        coach: userRare.coach,
+        nickName: userRare.nickName,
+        password: userRare.password,
+        player: userRare.player,
         events: [],
         personalData: {
-          first_name: userRaw.firstName,
-          last_name: userRaw.lastName,
-          games: userRaw.games,
+          first_name: userRare.firstName,
+          last_name: userRare.lastName,
+          games: userRare.games,
         },
         avatar: 'defaultAvatar.png',
       };

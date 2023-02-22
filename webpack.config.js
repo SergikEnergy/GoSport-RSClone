@@ -24,7 +24,7 @@ module.exports = {
       },
       {
         test: /\.(c|sa|sc)ss$/i,
-        use: [devMode ? 'style-loader' : MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+        use: [devMode ? 'style-loader' : _loader, 'css-loader', 'sass-loader'],
       },
       {
         test: /\.[tj]s$/i,
@@ -92,7 +92,7 @@ module.exports = {
     assetModuleFilename: 'assets/[name][ext]',
   },
   devServer: {
-    hot:true,
+    hot: true,
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
