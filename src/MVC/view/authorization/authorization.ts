@@ -6,6 +6,8 @@ const logUrl = 'http://127.0.0.1:5000/api/login';
 function authorization(parent: HTMLElement) {
   const loginHandler = new LogIn(logUrl);
   loginHandler.renderForm(parent);
+  const containerForms = document.querySelector('.container-forms') as HTMLDivElement;
+  const popUpContainer = document.querySelector('.blackout-popup') as HTMLElement;
 
   // const formLogIn = document.querySelector('.login-form') as HTMLFormElement;
   const nameInput = document.querySelector('#nickName') as HTMLInputElement;
@@ -73,11 +75,14 @@ function authorization(parent: HTMLElement) {
         errorGeneral.classList.add('form_hidden');
       }
       loginHandler.saveLocalStorage(response[0]._id);
+
+      containerForms.classList.add('form_hidden');
+      popUpContainer.classList.add('close');
     }
   });
 
   createUser();
-  const containerForms = document.querySelector('.container-forms') as HTMLDivElement;
+
   redirectCreate.addEventListener('click', (e) => {
     //here will be animation
     e.preventDefault();

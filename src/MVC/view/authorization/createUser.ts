@@ -6,9 +6,8 @@ export default function createUser() {
   const newUser = new NewUser(linkCreate);
   const parentElement = document.querySelector('.container-forms') as HTMLDivElement;
   newUser.renderForm(parentElement);
+  const popUpContainer = document.querySelector('.blackout-popup') as HTMLElement;
 
-  // const formLogIn = document.querySelector('.login-form') as HTMLFormElement;
-  // const formCreate = document.querySelector('.create-form') as HTMLFormElement;
   const errorGeneral = document.querySelector('#errorGeneralCreate') as HTMLDivElement;
   const nickInput = document.querySelector('#nickNameNew') as HTMLInputElement;
   const nickError = document.querySelector('#errorNameNewLog') as HTMLDivElement;
@@ -153,6 +152,8 @@ export default function createUser() {
         errorGeneral.classList.add('form_hidden');
       }
       newUser.saveLocalStorage(getNewUser._id);
+      parentElement.classList.add('form_hidden');
+      popUpContainer.classList.add('close');
     }
   });
 }
