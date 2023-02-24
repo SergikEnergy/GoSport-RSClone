@@ -124,36 +124,41 @@ export default function createUser() {
   createButton.addEventListener('click', async (e) => {
     e.preventDefault();
 
-    const userForm: ICreateUser = {
-      nickName: nickInput.value,
-      password: passwordInput.value,
-      coach: false,
-      player: false,
-      firstName: '',
-      lastName: '',
-      games: [],
-    };
-    const arr: string[] = [];
-    if (coachCheck.classList.contains('checked')) userForm.coach = true;
-    if (playerCheck.classList.contains('checked')) userForm.player = true;
-    if (basketCheck.classList.contains('checked')) arr.push('basketball');
-    if (tennisCheck.classList.contains('checked')) arr.push('tennis');
-    if (volleyCheck.classList.contains('checked')) arr.push('volleyball');
-    if (footCheck.classList.contains('checked')) arr.push('football');
-    if (firstName.value.trim()) userForm.firstName = firstName.value.trim();
-    if (lastName.value.trim()) userForm.lastName = lastName.value.trim();
-    userForm.games = arr;
-    const getNewUser = await newUser.createUser(userForm);
-    if (getNewUser?.data && getNewUser.data === 'userName') {
-      errorGeneral.classList.remove('form_hidden');
-      errorGeneral.textContent = `User with such name already exists`;
-    } else if (getNewUser && getNewUser.nickName) {
-      if (!errorGeneral.classList.contains('form_hidden')) {
-        errorGeneral.classList.add('form_hidden');
+    try {
+      const userForm: ICreateUser = {
+        nickName: nickInput.value,
+        password: passwordInput.value,
+        coach: false,
+        player: false,
+        firstName: '',
+        lastName: '',
+        games: [],
+      };
+      const arr: string[] = [];
+      if (coachCheck.classList.contains('checked')) userForm.coach = true;
+      if (playerCheck.classList.contains('checked')) userForm.player = true;
+      if (basketCheck.classList.contains('checked')) arr.push('basketball');
+      if (tennisCheck.classList.contains('checked')) arr.push('tennis');
+      if (volleyCheck.classList.contains('checked')) arr.push('volleyball');
+      if (footCheck.classList.contains('checked')) arr.push('football');
+      if (firstName.value.trim()) userForm.firstName = firstName.value.trim();
+      if (lastName.value.trim()) userForm.lastName = lastName.value.trim();
+      userForm.games = arr;
+      const getNewUser = await newUser.createUser(userForm);
+      if (getNewUser?.data && getNewUser.data === 'userName') {
+        errorGeneral.classList.remove('form_hidden');
+        errorGeneral.textContent = `User with such name already exists`;
+      } else if (getNewUser && getNewUser.nickName) {
+        if (!errorGeneral.classList.contains('form_hidden')) {
+          errorGeneral.classList.add('form_hidden');
+        }
+        newUser.saveLocalStorage(getNewUser._id);
+        parentElement.classList.add('form_hidden');
+        popUpContainer.classList.add('close');
       }
-      newUser.saveLocalStorage(getNewUser._id);
-      parentElement.classList.add('form_hidden');
-      popUpContainer.classList.add('close');
+    } catch (err) {
+      errorGeneral.classList.remove('form_hidden');
+      errorGeneral.textContent = `Ooops! Server is not started.`;
     }
   });
 }

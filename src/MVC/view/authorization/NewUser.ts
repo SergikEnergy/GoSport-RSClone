@@ -1,5 +1,5 @@
 import { createElement } from '../template/createElement';
-import LogIn from './LogIn';
+import LogIn from './logIn';
 import { ICreateUser, IValidateCreate } from './authorization.types';
 
 export default class NewUser extends LogIn {

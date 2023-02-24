@@ -1,5 +1,5 @@
 import createUser from './createUser';
-import LogIn from './LogIn';
+import LogIn from './logIn';
 
 const logUrl = 'http://127.0.0.1:5000/api/login';
 
@@ -65,19 +65,29 @@ function authorization(parent: HTMLElement) {
 
   loginButton.addEventListener('click', async (e) => {
     e.preventDefault();
-    const response = await loginHandler.getLogData(nameInput.value, passwordInput.value);
-    console.log(response);
-    if (response && response.data) {
-      loginHandler.renderPasswordNameError(response.data, errorGeneral);
-      errorGeneral.classList.remove('form_hidden');
-    } else if (response && response[0].nickName) {
-      if (!errorGeneral.classList.contains('form_hidden')) {
-        errorGeneral.classList.add('form_hidden');
-      }
-      loginHandler.saveLocalStorage(response[0]._id);
+    try {
+      const response = await loginHandler.getLogData(nameInput.value, passwordInput.value);
 
-      containerForms.classList.add('form_hidden');
-      popUpContainer.classList.add('close');
+      console.log(response);
+      if (response && response.data) {
+        loginHandler.renderPasswordNameError(response.data, errorGeneral);
+        errorGeneral.classList.remove('form_hidden');
+      } else if (response && response[0].nickName) {
+        if (!errorGeneral.classList.contains('form_hidden')) {
+          errorGeneral.classList.add('form_hidden');
+        }
+        loginHandler.saveLocalStorage(response[0]._id);
+
+        containerForms.classList.add('form_hidden');
+        popUpContainer.classList.add('close');
+      } else if (response.error) {
+        errorGeneral.innerText = 'Failed to fetch! Server is not started.';
+        errorGeneral.classList.remove('form_hidden');
+      }
+    } catch (err) {
+      errorGeneral.innerText = 'Failed to fetch! Server is not started.';
+      errorGeneral.classList.remove('form_hidden');
+      console.log(err);
     }
   });
 
