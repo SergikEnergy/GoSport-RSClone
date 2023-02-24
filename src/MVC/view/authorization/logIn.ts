@@ -1,5 +1,5 @@
 import { createElement } from '../template/createElement';
-import { ILogIn, IGetUser } from './authorization.types';
+import { ILogIn } from './authorization.types';
 // import { getErrorOrUser } from './authorization.types';
 
 export default class LogIn {
@@ -105,9 +105,8 @@ export default class LogIn {
     }
   }
 
-  saveLocalStorage(user: IGetUser) {
-    const userToString = JSON.stringify(user);
-    if (user) window.localStorage.setItem('currentUser', `${userToString}`);
-    else window.localStorage.setItem('currentUser', '');
+  saveLocalStorage(idUser: string) {
+    if (idUser) window.localStorage.setItem('currentUserId', `${idUser}`);
+    else window.localStorage.setItem('currentUserId', '');
   }
 }

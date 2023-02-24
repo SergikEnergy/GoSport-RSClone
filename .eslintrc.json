@@ -4,15 +4,18 @@
     "sourceType": "module"
   },
   "parser": "@typescript-eslint/parser",
-  "plugins": [
-    "@typescript-eslint"
-  ],
-  "extends": [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended"
-  ],
+  "plugins": ["@typescript-eslint"],
+  "extends": ["eslint:recommended", "plugin:@typescript-eslint/eslint-recommended", "plugin:@typescript-eslint/recommended"],
   "env": {
-    "es6": true
+    "es6": true,
+    "node": true,
+    "browser": true
+  },
+  "ignorePatterns": ["*/.js"],
+  "rules": {
+    "@typescript-eslint/no-var-requires": 0,
+    "no-debugger": "off",
+    "no-console": 0,
+    "class-methods-use-this": "off"
   }
 }
