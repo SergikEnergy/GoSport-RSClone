@@ -1,12 +1,14 @@
 import { createElement } from '../../template/createElement';
+import { IEvent, KindsSport } from './eventsType';
 
-const games = ['Волейбол', 'Футбол', 'Баскетбол'];
+const games = ['Волейбол', 'Футбол', 'Баскетбол', 'Теннис'];
 
 export const renderPageEvents = (parent: HTMLElement): void => {
   const wrapper = createElement('div', parent, 'wrapper wrapper_events');
   const headerPage = createElement('h2', wrapper, 'header-events');
   headerPage.textContent = 'Список найденных событий на основе выбранных параметров';
-  const blockFilters = createElement('div', wrapper, 'filters');
+  const contentWrapper = createElement('div', wrapper, 'content');
+  const blockFilters = createElement('div', contentWrapper, 'filters');
   const headerFilters = createElement('h3', blockFilters, 'filters-header');
   headerFilters.textContent = 'Фильтр';
   const kindSport = createElement('div', blockFilters, 'kind-sport');
@@ -53,15 +55,25 @@ export const renderPageEvents = (parent: HTMLElement): void => {
     }
   });
 
-  const dateEvent = createElement('input', blockFilters, 'date-event');
-  dateEvent.setAttribute('type', 'date');
+  const dateFilters = <HTMLInputElement>createElement('input', blockFilters, 'date-filters');
+  dateFilters.setAttribute('type', 'date');
 
-  dateEvent.setAttribute('value', `${getTodayDate()}`);
-  const valuePlayers = createElement('input', blockFilters, 'value-players');
+  dateFilters.setAttribute('value', `${getTodayDate()}`);
+  const valuePlayers = <HTMLInputElement>createElement('input', blockFilters, 'value-players');
   valuePlayers.setAttribute('maxlength', '2');
   valuePlayers.setAttribute('placeholder', 'Количество свободных мест');
-  const buttonEvents = createElement('button', blockFilters, 'button_events');
-  buttonEvents.textContent = 'Найти';
+  const buttonFilters = createElement('button', blockFilters, 'button_filters');
+  buttonFilters.textContent = 'Найти';
+  const blockEvents = createElement('div', contentWrapper, 'block-events');
+
+  buttonFilters.addEventListener('click', async () => {
+
+    const data = await getEvents(selectKind, dateFilters, valuePlayers);
+
+    if (data.length) {
+      renderEvents(blockEvents, data);
+    }
+  });
 }
 
 function getTodayDate(): string {
@@ -70,4 +82,41 @@ function getTodayDate(): string {
   const monthNow = todayDate.getMonth() + 1;
   const yearNow = todayDate.getFullYear();
   return `${yearNow}-0${monthNow}-${dateNow}`;
+}
+
+async function getEvents(kindSport: HTMLElement, date: HTMLInputElement, valuePlayers: HTMLInputElement): Promise<IEvent[]> {
+  const url = 'http://localhost:5000/api/events';
+  const correctDate = date.value.split('-').reverse().join('.');
+  const typeSport = `${kindSport.textContent}`;
+  const kind = KindsSport[typeSport as keyof typeof KindsSport];
+
+  const res = await fetch(`${url}`, {
+    headers: {
+      kind: `${kind}`,
+      date: `${correctDate}`,
+      rest_players: `${valuePlayers?.value}`,
+    },
+  });
+
+  const data: IEvent[] = await res.json();
+  return data;
+}
+
+function renderEvents(parent: HTMLElement, data: IEvent[]): void {
+  parent.innerHTML = '';
+  data.forEach(item => {
+    const eventBlock = createElement('div', parent, 'event');
+    const infoBlock = createElement('div', eventBlock, 'event__info')
+    const typeEvent = createElement('p', infoBlock, 'event__type');
+    typeEvent.textContent = `${item.kind.toLocaleUpperCase()}`;
+    const restPlaces = createElement('p', infoBlock, 'event__places event__item');
+    restPlaces.textContent = `Осталось ${item.rest_players} мест`;
+    const dateBlock = createElement('div', eventBlock, 'event__date-info');
+    const dateEvent = createElement('p', dateBlock, 'event__date event__item');
+    dateEvent.textContent = `${item.date}`;
+    const timeStart = createElement('p', dateBlock, 'event__time event__item');
+    timeStart.textContent = `Начало игры в ${item.time_start}`;
+    const eventButton = createElement('button', eventBlock, 'button_event');
+    eventButton.textContent = 'Подробнее';
+  });
 }

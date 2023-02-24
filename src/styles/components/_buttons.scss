@@ -32,7 +32,7 @@
   }
 }
 
-.button_events {
+.button_filters, .button_event {
   background-color: $color-main-dark;
   @include font (2rem, 2rem);
   color: $color-white;
@@ -44,5 +44,14 @@
 
   &:hover {
     background-color: $color-blue;
+  }
+}
+
+.button_event {
+  max-width: inherit;
+
+  @include media-mobile {
+    @include font (1.8rem, 1.8rem);
+    padding: 1rem;
   }
 }
