@@ -76,6 +76,7 @@ body {
   background-color: #111112;
   position: relative;
 
+
   &::before {
     content: "";
     position: absolute;
@@ -100,7 +101,7 @@ body {
   }
 
   .hero__desription {
-    color: #f6f8f7;
+    color: #f3d849;
     position: relative;
     z-index: 3;
 
@@ -143,8 +144,11 @@ body {
     width: 110px;
       text-decoration: none;
       text-align: center;
-      margin: 5px;
-      color:$primary1;
+      margin-left: 5px;
+      transition: all .3s;
+      &:hover {
+        color: #0a62d0
+      }
     }
     figure {
       figcaption {
@@ -205,6 +209,9 @@ top: -20px;
       margin: 0;
       img {
         width: 100%;
+        height: auto;
+        object-fit: cover;
+        aspect-ratio: 4/3;
       }
     }
   }
@@ -213,6 +220,9 @@ top: -20px;
   #carousel {
     position: unset;
     width: 100%;
+    .carousel-item {
+      display: block !important;
+    }
   }
 
   .carousel-indicators {
@@ -230,11 +240,11 @@ top: -20px;
         height: 25px;
         border-radius: 100%;
         opacity: 1;
-        background-color: #dee7e3a8;
+        background-color: #191718;
         margin: 0;
 
         &.active {
-          background-color: #202022e0;
+          background-color: #0a62d0;
         }
         &:hover {
           cursor: pointer;
