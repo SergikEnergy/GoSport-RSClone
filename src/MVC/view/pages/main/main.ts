@@ -1,6 +1,9 @@
 import './styles/main.css';
 import './styles/responsive-main.css';
 import { fetchEventByKind } from './mainQueryDB';
+
+const eventsUrl:URL = new URL('events','http://127.0.0.1:5000/api/');
+
 function mainPage(htmlElem: HTMLElement): string {
   const view = `
   <section class="hero position-relative">
@@ -14,22 +17,22 @@ function mainPage(htmlElem: HTMLElement): string {
               в командных видах спортах
             </h1>
             <article class="games-list">
-            <a href="" class="games-list__item games-list__item-voleyball">
-            <figure>
-              <img src="/icons/voleyball.png" alt="Voleyball image">
-              <figcaption>Волейбол</figcaption>
+            <a href="" target="_blank" data-event="Voleyball" class="games-list__item games-list__item-voleyball">
+            <figure data-event="Voleyball">
+              <img data-event="Voleyball" src="/icons/voleyball.png" alt="Voleyball image">
+              <figcaption data-event="Voleyball">Волейбол</figcaption>
             </figure>
             </a>
-            <a href="" class="games-list__item games-list__item-football">
-              <figure>
-                <img src="/icons/football.png" alt="Football image">
-                <figcaption>Футбол</figcaption>
+            <a href="" target="_blank" data-event="Football" class="games-list__item games-list__item-football">
+              <figure data-event="Football">
+                <img data-event="Football" src="/icons/football.png" alt="Football image">
+                <figcaption data-event="Football">Футбол</figcaption>
               </figure>
             </a>
-            <a href="" class="games-list__item games-list__item-basketball">
-              <figure>
-                <img src="/icons/basketball-ball.png" alt="Basketball image">
-                <figcaption>Баскетбол</figcaption>
+            <a href="" target="_blank" data-event="Basketball" class="games-list__item games-list__item-basketball">
+              <figure data-event="Basketball">
+                <img data-event="Basketball" src="/icons/basketball-ball.png" alt="Basketball image">
+                <figcaption data-event="Basketball">Баскетбол</figcaption>
               </figure>
             </a>
             <a href="" class="games-list__item games-list__item-more-games">
@@ -78,6 +81,7 @@ function mainPage(htmlElem: HTMLElement): string {
 }
 
 export function eventsAfterRenderMainPage(): void {
+  //Carousel switch's
   const carouselContainerElem: HTMLElement | null = document.querySelector('.carousel-indicators');
   const carouselImageContainerElem = document.querySelectorAll('.carousel-item');
   const carouselItemElem = document.querySelectorAll('.carousel__indicators-item');
@@ -96,16 +100,22 @@ export function eventsAfterRenderMainPage(): void {
       }
     }
   });
-  const url:URL = new URL('events','http://127.0.0.1:5000/api/');
-fetchEventByKind(url,'football').then(res=> {
-  console.log(res)
+  //Events by click
+  const gamesListContainerElem = document.querySelector('.games-list');
+gamesListContainerElem?.addEventListener('click', async (event) => {
+  if (event.target instanceof HTMLElement) {
+    if (event.target.dataset.event) {
+    const arrayOfEventsByKind = await fetchEventByKind(eventsUrl,(event.target.dataset.event).toLowerCase())
+    console.log(arrayOfEventsByKind);
+    }
+  }
 })
+}
 
-  function removeActiveClass(element: Element): void {
-    element.classList.remove('active');
-  }
-  function addActiveClass(element: Element): void {
-    element.classList.add('active');
-  }
+function removeActiveClass(element: Element): void {
+  element.classList.remove('active');
+}
+function addActiveClass(element: Element): void {
+  element.classList.add('active');
 }
 export default mainPage;
