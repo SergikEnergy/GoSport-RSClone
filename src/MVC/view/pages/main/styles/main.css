@@ -64,7 +64,7 @@ body {
   justify-content: center;
 }
 .hero .hero__desription {
-  color: #f6f8f7;
+  color: #f3d849;
   position: relative;
   z-index: 3;
 }
@@ -122,8 +122,11 @@ body {
   width: 110px;
   text-decoration: none;
   text-align: center;
-  margin: 5px;
-  color: #d33d33;
+  margin-left: 5px;
+  transition: all 0.3s;
+}
+.hero .games-list__item:hover {
+  color: #0a62d0;
 }
 .hero .games-list figure figcaption {
   font-size: 1.7rem;
@@ -187,10 +190,16 @@ body {
 }
 .hero .hero__images .carousel-inner__images img {
   width: 100%;
+  height: auto;
+  object-fit: cover;
+  aspect-ratio: 4/3;
 }
 .hero #carousel {
   position: unset;
   width: 100%;
+}
+.hero #carousel .carousel-item {
+  display: block !important;
 }
 .hero .carousel-indicators.carousel__indicators-custom {
   width: 50px;
@@ -206,11 +215,11 @@ body {
   height: 25px;
   border-radius: 100%;
   opacity: 1;
-  background-color: rgba(222, 231, 227, 0.6588235294);
+  background-color: #191718;
   margin: 0;
 }
 .hero .carousel-indicators.carousel__indicators-custom li.active {
-  background-color: rgba(32, 32, 34, 0.8784313725);
+  background-color: #0a62d0;
 }
 .hero .carousel-indicators.carousel__indicators-custom li:hover {
   cursor: pointer;
