@@ -3,6 +3,7 @@ import { createElement } from '../view/template/createElement';
 import Header from '../view/header/header';
 import Footer from '../view/footer/footer';
 import PopUp from '../view/welcome-popup/welcome-popup';
+import MainPage from '../view/pages/main/MainPage';
 
 export default class App {
   renderBaseElements(): void {
@@ -20,5 +21,6 @@ export default class App {
     router.run();
     PopUp.renderPopup();
     PopUp.renderWelcomePopup();
+    MainPage.eventsAfterRenderMainPage();
   }
 }
