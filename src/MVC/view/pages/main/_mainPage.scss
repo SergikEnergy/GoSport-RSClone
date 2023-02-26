@@ -1,0 +1,288 @@
+$black: #000000;
+$white: #ffffff;
+// $primary1: #a0d627;
+$primary1: #d33d33;
+
+@mixin main-font {
+  font-family: "Poppins", sans-serif;
+}
+
+@mixin hero_btn($col1, $col2, $pad1, $pad2, $bRadius) {
+  display: inline-block;
+  padding: $pad1 $pad2;
+  background-color: $col1;
+  border: 1px solid $col1;
+  color: $col2;
+  border-radius: $bRadius;
+  transition: all .3s;
+
+  &:hover {
+    background-color: transparent;
+    color: $col1;
+  }
+}
+
+@mixin upperBold {
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+body {
+  @include main-font;
+  color: #0c0c0c;
+  background-color: $white;
+}
+
+.layout_padding {
+  padding: 75px 0;
+}
+
+.layout_padding2 {
+  padding: 45px 0;
+}
+
+.layout_padding2-top {
+  padding-top: 45px;
+}
+
+.layout_padding2-bottom {
+  padding-bottom: 45px;
+}
+
+.layout_padding-top {
+  padding-top: 75px;
+}
+
+.layout_padding-bottom {
+  padding-bottom: 75px;
+}
+
+.heading_container {
+  display: flex;
+
+  h2 {
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+
+  &.heading_center {
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+
+.hero {
+  background-color: #111112;
+  position: relative;
+
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 80%;
+    height: 100%;
+    background-image: url('../assets/img/slider-bg.png');
+    background-size: 100% 100%;
+    z-index: 2;
+  }
+
+
+  .row {
+    align-items: center;
+    height: 100%;
+  }
+
+  .detail-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  .hero__desription {
+    color: #f3d849;
+    position: relative;
+    z-index: 3;
+
+    h1 {
+      font-size: 3.5rem;
+      font-weight: bold;
+      margin-bottom: 25px;
+    }
+
+    p {
+      margin-bottom: 25px;
+    }
+
+    .hero__buttons {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 0 -5px;
+
+      a {
+        width: 165px;
+        text-align: center;
+        margin: 5px;
+      }
+
+      .hero__buttons-type1 {
+        @include hero_btn($primary1, $white, 8px, 0, 0px);
+      }
+
+      .hero__buttons-type2 {
+        @include hero_btn($white, $black, 8px, 0, 0px);
+      }
+    }
+  }
+  .games-list{
+    margin-top: 3rem;
+    display: flex;
+    align-items: center;
+    &__item{
+      height: 120px;
+    width: 110px;
+      text-decoration: none;
+      text-align: center;
+      margin-left: 5px;
+      transition: all .3s;
+      &:hover {
+        color: #0a62d0
+      }
+    }
+    figure {
+      figcaption {
+        font-size: 1.7rem;
+        padding-top: 7px;
+      }
+      img {
+        transition: top .2s;
+        width: 64px;
+        height: 64px;
+position: relative;
+top: -20px;
+          animation: bounce 1s 3;
+      }
+      @keyframes bounce {
+        0% {top: -30px;
+          -webkit-animation-timing-function: ease-in;
+        }
+        40% {
+          top: -20px
+        }
+        50% {top: -10px;
+          -webkit-animation-timing-function: ease-out;
+        }
+        55% {top: -5px;
+          -webkit-animation-timing-function: ease-in;}
+        65% {top: 5px;
+          -webkit-animation-timing-function: ease-out;}
+          75% {
+            top:-10px;
+            -webkit-animation-timing-function: ease-in;
+          }
+          85% {
+            top:-15px;
+            -webkit-animation-timing-function: ease-out;
+          }
+        95% {
+          top: -20px;
+          -webkit-animation-timing-function: ease-in;
+        }
+        100% {top: -30px;
+          -webkit-animation-timing-function: ease-in;
+        }
+      }
+      &:hover {
+        img {
+          top:10px;
+        }
+      }
+    }
+  }
+
+  .hero__images {
+    background-color: $white;
+    position: relative;
+    overflow: hidden;
+    .carousel-inner__images {
+      margin: 0;
+      img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        aspect-ratio: 4/3;
+      }
+    }
+  }
+
+
+  #carousel {
+    position: unset;
+    width: 100%;
+    .carousel-item {
+      display: block !important;
+    }
+  }
+
+  .carousel-indicators {
+    &.carousel__indicators-custom {
+      width: 50px;
+      height: 100%;
+      flex-direction: column;
+      align-items: flex-end;
+      left: initial;
+      right: 25px;
+      margin: 0;
+
+      li {
+        width: 25px;
+        height: 25px;
+        border-radius: 100%;
+        opacity: 1;
+        background-color: #191718;
+        margin: 0;
+
+        &.active {
+          background-color: #0a62d0;
+        }
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+
+    &.indicator-2 {
+      width: 50px;
+      height: 50px;
+      top: 50%;
+      left: 46%;
+      margin: 0;
+      transform: translateY(-50%);
+      background-color: $primary1;
+      justify-content: center;
+      align-items: center;
+      border-radius: 100%;
+
+      li {
+        text-indent: unset;
+        border-radius: 100%;
+        opacity: 1;
+        display: none;
+        color: $white;
+        border: none;
+        width: auto;
+        height: auto;
+        background-color: transparent;
+
+        &.active {
+          display: block;
+          border: none;
+          border: #000000;
+        }
+      }
+    }
+  }
+
+}
+
