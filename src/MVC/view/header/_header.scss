@@ -16,6 +16,7 @@
 .header__wrapper {
   display: flex;
   justify-content: space-between;
+  color: $color-white;
 }
 
 .logo {
@@ -23,7 +24,6 @@
   align-items: center;
   gap: 5px;
   transition: 0.5s ease;
-  color: $color-white;
 
   &:hover {
     color: $color-yellow;
@@ -126,13 +126,9 @@
   position: absolute;
   top: 45px;
   right: 5px;
-  color: $color-white;
+  z-index: 2;
 }
 
 .user-list.active {
   display: flex;
-}
-
-.city-list {
-  color: $color-white;
 }

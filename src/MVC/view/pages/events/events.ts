@@ -1,7 +1,7 @@
 import { createElement } from '../../template/createElement';
 import { IEvent, KindsSport } from './eventsType';
 
-const url = 'http://localhost:5000/api/events';
+const url = 'https://go-sport-app-clone.onrender.com/api/events';
 const games = ['Волейбол', 'Футбол', 'Баскетбол', 'Теннис'];
 
 export const renderPageEvents = (parent: HTMLElement): void => {
@@ -158,7 +158,12 @@ function renderEvent(parent: HTMLElement, data: IEvent, valuePlayers?: HTMLInput
 
   button.addEventListener('click', async () => {
     const newData = structuredClone(data);
-    const idPlayer = '123123123'; //ВСТАВИТЬ ID ИЗ LOCALSTORAGE!!!
+    const idPlayer = localStorage.getItem('currentUserId');
+
+    if (!idPlayer) {
+      console.log(`id not found`);
+      return;
+    }
 
     if (newData.players.includes(idPlayer)) {
       const message = 'Вы уже состоите в данном мероприятии!'
@@ -166,6 +171,9 @@ function renderEvent(parent: HTMLElement, data: IEvent, valuePlayers?: HTMLInput
     } else if (!valuePlayers?.value) {
       const message = 'Вы не указали в фильтре сколько человек хочет присоединиться к данному мероприятию!';
       renderMessage(eventPopup, message);
+    } else if (newData.rest_players < Number(valuePlayers.value)){
+      const message = 'Недостаточно свободных мест на данном мероприятии!';
+      renderMessage(eventPopup, message)
     } else {
       newData.players.push(idPlayer);
       newData.rest_players -= Number(`${valuePlayers?.value}`);

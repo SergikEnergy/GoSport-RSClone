@@ -3,14 +3,18 @@ html {
   font-size: 10px;
   line-height: 10px;
   color: $color-white;
+  height: 100%;
 }
 
 body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
   background-color: $color-white;
 }
 
 main {
-  height: 80vh; // потом изменить
+  flex: 1 1 auto;
 }
 
 h2 {
@@ -25,9 +29,4 @@ h3 {
 
 .off-scroll {
   overflow: hidden;
-}
-
-.close {
-  opacity: 0;
-  top: -100%;
 }

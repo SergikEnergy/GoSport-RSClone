@@ -1,7 +1,7 @@
 import createUser from './createUser';
 import LogIn from './logIn';
 
-const logUrl = 'http://127.0.0.1:5000/api/login';
+const logUrl = 'https://go-sport-app-clone.onrender.com/api/login';
 
 function authorization(parent: HTMLElement) {
   const loginHandler = new LogIn(logUrl);
@@ -80,6 +80,7 @@ function authorization(parent: HTMLElement) {
 
         containerForms.classList.add('form_hidden');
         popUpContainer.classList.add('close');
+        document.body.classList.remove('off-scroll');
       } else if (response.error) {
         errorGeneral.innerText = 'Failed to fetch! Server is not started.';
         errorGeneral.classList.remove('form_hidden');
