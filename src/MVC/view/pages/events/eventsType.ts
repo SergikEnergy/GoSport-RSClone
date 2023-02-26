@@ -3,6 +3,7 @@ export interface IEvent {
   id_place: string;
   kind: string;
   place_name: string[];
+  players: string[];
   rest_players: number;
   time_end: string;
   time_start: string;

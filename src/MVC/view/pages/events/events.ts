@@ -1,6 +1,7 @@
 import { createElement } from '../../template/createElement';
 import { IEvent, KindsSport } from './eventsType';
 
+const url = 'http://localhost:5000/api/events';
 const games = ['Волейбол', 'Футбол', 'Баскетбол', 'Теннис'];
 
 export const renderPageEvents = (parent: HTMLElement): void => {
@@ -71,7 +72,11 @@ export const renderPageEvents = (parent: HTMLElement): void => {
     const data = await getEvents(selectKind, dateFilters, valuePlayers);
 
     if (data.length) {
-      renderEvents(blockEvents, data);
+      renderEvents(blockEvents, data, wrapper, valuePlayers);
+    } else {
+      blockEvents.innerHTML = '';
+      const textMessage = createElement('div', blockEvents, 'message-text');
+      textMessage.textContent = 'По данным фильтрам - событий не найдено! Измениете параметры фильтров для поиска похожих или других событий';
     }
   });
 }
@@ -85,7 +90,6 @@ function getTodayDate(): string {
 }
 
 async function getEvents(kindSport: HTMLElement, date: HTMLInputElement, valuePlayers: HTMLInputElement): Promise<IEvent[]> {
-  const url = 'http://localhost:5000/api/events';
   const correctDate = date.value.split('-').reverse().join('.');
   const typeSport = `${kindSport.textContent}`;
   const kind = KindsSport[typeSport as keyof typeof KindsSport];
@@ -93,8 +97,8 @@ async function getEvents(kindSport: HTMLElement, date: HTMLInputElement, valuePl
   const res = await fetch(`${url}`, {
     headers: {
       kind: `${kind}`,
-      date: `${correctDate}`,
-      rest_players: `${valuePlayers?.value}`,
+      dateevent: `${correctDate}`,
+      restplayers: `${valuePlayers?.value}`,
     },
   });
 
@@ -102,7 +106,7 @@ async function getEvents(kindSport: HTMLElement, date: HTMLInputElement, valuePl
   return data;
 }
 
-function renderEvents(parent: HTMLElement, data: IEvent[]): void {
+function renderEvents(parent: HTMLElement, data: IEvent[], firstParent: HTMLElement, valuePlayers: HTMLInputElement): void {
   parent.innerHTML = '';
   data.forEach(item => {
     const eventBlock = createElement('div', parent, 'event');
@@ -118,5 +122,94 @@ function renderEvents(parent: HTMLElement, data: IEvent[]): void {
     timeStart.textContent = `Начало игры в ${item.time_start}`;
     const eventButton = createElement('button', eventBlock, 'button_event');
     eventButton.textContent = 'Подробнее';
+
+    eventButton.addEventListener('click', async () => {
+      const dataEvent = await getEvent(item._id);
+
+      if (dataEvent) {
+        renderEvent(firstParent, dataEvent, valuePlayers);
+        document.body.classList.add('off-scroll');
+      }
+    });
   });
+}
+
+async function getEvent(id: string): Promise<IEvent> {
+  const res = await fetch(`${url}/${id}`);
+  const data: IEvent = await res.json();
+  return data;
+}
+
+function renderEvent(parent: HTMLElement, data: IEvent, valuePlayers?: HTMLInputElement):void {
+  const blackoutPopup = createElement('div', parent, 'blackout-popup');
+  const eventPopup = createElement('div', blackoutPopup, 'event-popup');
+  const nameGame = createElement('p', eventPopup, 'event-popup__name');
+  nameGame.textContent = `${data.kind.toLocaleUpperCase()}`;
+  const dateGame = createElement('p', eventPopup, 'event-popup__date');
+  dateGame.textContent = `День проведения:  ${data.date}`;
+  const placeName = createElement('p', eventPopup, 'event-popup__place');
+  placeName.textContent = `Место проведения: ${data.place_name}`;
+  const gameStart = createElement('p', eventPopup, 'event-popup__time');
+  gameStart.textContent = `Время проведения: ${data.time_start} - ${data.time_end}`;
+  const freePlaces = createElement('p', eventPopup, 'event-popup__free-places');
+  freePlaces.textContent = `Свободных мест: ${data.rest_players}`;
+  const button = createElement('button', eventPopup, 'button_add');
+  button.textContent = 'Присоединиться';
+
+  button.addEventListener('click', async () => {
+    const newData = structuredClone(data);
+    const idPlayer = '123123123'; //ВСТАВИТЬ ID ИЗ LOCALSTORAGE!!!
+
+    if (newData.players.includes(idPlayer)) {
+      const message = 'Вы уже состоите в данном мероприятии!'
+      renderMessage(eventPopup, message);
+    } else if (!valuePlayers?.value) {
+      const message = 'Вы не указали в фильтре сколько человек хочет присоединиться к данному мероприятию!';
+      renderMessage(eventPopup, message);
+    } else {
+      newData.players.push(idPlayer);
+      newData.rest_players -= Number(`${valuePlayers?.value}`);
+
+      const req = await addPlayerInEvent(data._id, newData);
+
+      if (req) {
+        const errorMessage = 'Вы успешно добавлены на мероприятие!';
+        renderMessage(eventPopup, errorMessage);
+      }
+    }
+
+  });
+
+  blackoutPopup.addEventListener('click', (e: Event) => {
+    if (e.target instanceof HTMLElement) {
+      if (!e.target.closest('.event-popup')) {
+        setTimeout((): void => {
+          blackoutPopup.remove();
+        }, 1000);
+        document.body.classList.remove('off-scroll');
+        blackoutPopup.classList.add('close');
+      }
+    }
+  });
+}
+
+async function addPlayerInEvent(id: string, data: IEvent) {
+  const request = await fetch(`${url}/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify(data),
+    headers: {
+      'Content-Type': 'application/json'
+    },
+  });
+
+  return request;
+}
+
+function renderMessage(parent: HTMLElement, text: string): void {
+  const message = createElement('div', parent, 'message-notice');
+  message.textContent = `${text}`;
+
+  setTimeout((): void => {
+    message.remove();
+  }, 2000);
 }

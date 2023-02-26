@@ -22,3 +22,12 @@ h3 {
   @include font (2.6rem, 2.6rem, 700);
   text-align: center;
 }
+
+.off-scroll {
+  overflow: hidden;
+}
+
+.close {
+  opacity: 0;
+  top: -100%;
+}
