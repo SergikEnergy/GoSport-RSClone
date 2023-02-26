@@ -1,7 +1,7 @@
 import { createElement } from '../../template/createElement';
 import { IEvent, KindsSport } from './eventsType';
 
-const url = 'http://localhost:5000/api/events';
+const url = 'https://go-sport-app-clone.onrender.com/api/events';
 const games = ['Волейбол', 'Футбол', 'Баскетбол', 'Теннис'];
 
 export const renderPageEvents = (parent: HTMLElement): void => {

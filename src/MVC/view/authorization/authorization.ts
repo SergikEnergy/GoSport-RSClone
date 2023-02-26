@@ -1,7 +1,7 @@
 import createUser from './createUser';
 import LogIn from './logIn';
 
-const logUrl = 'http://127.0.0.1:5000/api/login';
+const logUrl = 'https://go-sport-app-clone.onrender.com/api/login';
 
 function authorization(parent: HTMLElement) {
   const loginHandler = new LogIn(logUrl);
