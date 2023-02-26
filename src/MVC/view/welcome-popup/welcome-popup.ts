@@ -9,6 +9,7 @@ class PopUp {
 
   renderPopup(): HTMLElement {
     const blackoutPopup = createElement('div', this.parent, 'blackout-popup');
+    this.parent.classList.add('off-scroll');
     return blackoutPopup;
   }
 

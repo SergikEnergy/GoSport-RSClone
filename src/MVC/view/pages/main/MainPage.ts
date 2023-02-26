@@ -1,5 +1,5 @@
 import Page from '../../template/page';
-import './_responsive-main.css';
+import './_responsive-main.scss';
 import { fetchEventByKind } from './mainQueryDB';
 
 export default class MainPage extends Page {
