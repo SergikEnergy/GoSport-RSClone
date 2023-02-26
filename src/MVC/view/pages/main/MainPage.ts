@@ -6,8 +6,45 @@ export default class MainPage extends Page {
   static textObject = {
     MainTitle: 'MainPage123',
   };
-  private eventsUrl:URL = new URL('events','http://127.0.0.1:5000/api/');
+  static eventsUrl:URL = new URL('events','http://127.0.0.1:5000/api/');
+  static  eventsAfterRenderMainPage(): void {
+    function removeActiveClass(element: Element): void {
+      element.classList.remove('active');
+    }
+    function addActiveClass(element: Element): void {
+      element.classList.add('active');
+    }
+    //Carousel switch's
+    const carouselContainerElem: HTMLElement | null = document.querySelector('.carousel-indicators');
+    const carouselImageContainerElem = document.querySelectorAll('.carousel-item');
+    const carouselItemElem = document.querySelectorAll('.carousel__indicators-item');
+    carouselContainerElem?.addEventListener('click', (event) => {
+      if (event.target instanceof HTMLLIElement) {
+        if (event.target.dataset.target === 'carouselIndicators') {
+          const targetDataNumber = event.target.dataset.slideTo;
+          carouselImageContainerElem?.forEach(removeActiveClass);
+          if (targetDataNumber) {
+            addActiveClass(carouselImageContainerElem[+targetDataNumber]);
+          }
+          carouselItemElem.forEach(removeActiveClass);
+          if (targetDataNumber) {
+            addActiveClass(carouselItemElem[+targetDataNumber]);
+          }
+        }
+      }
+    });
+    //Events by click
+    const gamesListContainerElem = document.querySelector('.games-list');
+  gamesListContainerElem?.addEventListener('click', async (event) => {
+    if (event.target instanceof HTMLElement) {
+      if (event.target.dataset.event) {
+      const arrayOfEventsByKind = await fetchEventByKind(this.eventsUrl,(event.target.dataset.event).toLowerCase())
+      console.log(arrayOfEventsByKind);
+      }
+    }
+  })
 
+  }
   constructor(id: string) {
     super(id);
   }
@@ -92,42 +129,5 @@ export default class MainPage extends Page {
     `;
 
     return (htmlElem.innerHTML = view);
-  }
-  eventsAfterRenderMainPage(): void {
-    function removeActiveClass(element: Element): void {
-      element.classList.remove('active');
-    }
-    function addActiveClass(element: Element): void {
-      element.classList.add('active');
-    }
-    //Carousel switch's
-    const carouselContainerElem: HTMLElement | null = document.querySelector('.carousel-indicators');
-    const carouselImageContainerElem = document.querySelectorAll('.carousel-item');
-    const carouselItemElem = document.querySelectorAll('.carousel__indicators-item');
-    carouselContainerElem?.addEventListener('click', (event) => {
-      if (event.target instanceof HTMLLIElement) {
-        if (event.target.dataset.target === 'carouselIndicators') {
-          const targetDataNumber = event.target.dataset.slideTo;
-          carouselImageContainerElem?.forEach(removeActiveClass);
-          if (targetDataNumber) {
-            addActiveClass(carouselImageContainerElem[+targetDataNumber]);
-          }
-          carouselItemElem.forEach(removeActiveClass);
-          if (targetDataNumber) {
-            addActiveClass(carouselItemElem[+targetDataNumber]);
-          }
-        }
-      }
-    });
-    //Events by click
-    const gamesListContainerElem = document.querySelector('.games-list');
-  gamesListContainerElem?.addEventListener('click', async (event) => {
-    if (event.target instanceof HTMLElement) {
-      if (event.target.dataset.event) {
-      const arrayOfEventsByKind = await fetchEventByKind(this.eventsUrl,(event.target.dataset.event).toLowerCase())
-      console.log(arrayOfEventsByKind);
-      }
-    }
-  })
   }
 }
