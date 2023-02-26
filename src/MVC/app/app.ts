@@ -8,7 +8,7 @@ export default class App {
   renderBaseElements(): void {
     const container = document.body;
     const headerContainer = createElement('header', container, 'header');
-    createElement('div', container, 'main-content');
+    createElement('main', container, 'main-content');
     const footerContainer = createElement('footer', container, 'footer');
 
     Header.renderHeader(headerContainer);
