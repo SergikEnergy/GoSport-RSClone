@@ -23,11 +23,8 @@
   gap: 40px;
   text-align: center;
   background-color: transparent;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   max-width: 600px;
+  color: $color-main-light;
   z-index: 2;
 
   @include media-tablet {
@@ -46,7 +43,6 @@
 
 .welcome-popup__text {
   @include font(2.2rem, 2.4rem);
-  color: $color-main-light;
   padding: 0 15px;
 
   @include media-tablet {
