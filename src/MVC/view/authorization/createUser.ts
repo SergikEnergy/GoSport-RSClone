@@ -144,6 +144,7 @@ export default function createUser() {
       if (firstName.value.trim()) userForm.firstName = firstName.value.trim();
       if (lastName.value.trim()) userForm.lastName = lastName.value.trim();
       userForm.games = arr;
+      debugger;
       const getNewUser = await newUser.createUser(userForm);
       if (getNewUser?.data && getNewUser.data === 'userName') {
         errorGeneral.classList.remove('form_hidden');
