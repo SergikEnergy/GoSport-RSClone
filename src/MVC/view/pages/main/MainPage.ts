@@ -1,26 +1,20 @@
 import { createElement } from '../../template/createElement';
 import Page from '../../template/page';
-// import { fetchEventByKind } from './mainQueryDB';
-// import { iEvents } from './TStype/mainTypes';
-
+import { fetchEvents } from './mainQueryDB';
+import { IEvent } from '../events/eventsType';
 export default class MainPage extends Page {
   static textObject = {
     MainTitle: 'Welcome to Main Page',
   };
 
-  private eventsUrl: URL = new URL('events', 'https://go-sport-app-clone.onrender.com/api/');
+  private eventsUrl: URL = new URL('events/three', 'https://go-sport-app-clone.onrender.com/api/');
 
   constructor(id: string) {
     super(id);
   }
 
   render() {
-    this.mainPage(this.container);
-    return this.container;
-  }
-
-  mainPage(parent: HTMLElement): void {
-    const sectionHero = createElement('section', parent, 'hero position-relative');
+    const sectionHero = createElement('section', this.container, 'hero position-relative');
     const containerHero = createElement('div', sectionHero, 'container-fluid h-100');
     const rowHero = createElement('div', containerHero, 'row');
     const colHero1 = createElement('div', rowHero, 'col-md-5 col-xl-4 offset-xl-1');
@@ -32,18 +26,18 @@ export default class MainPage extends Page {
 		и улучшай свои навыки <br>
 		в командных видах спортах`;
     const article1 = createElement('article', heroDescr1, 'games-list');
-    const link1_1 = createElement('a', article1, 'games-list__item games-list__item-voleyball');
+    const link1_1 = createElement('a', article1, 'games-list__item games-list__item-volleyball');
     link1_1.setAttribute('href', '#events-page');
-    link1_1.setAttribute('data-event', 'Voleyball');
+    link1_1.setAttribute('data-event', 'Volleyball');
     const figure1_1 = createElement('figure', link1_1, '');
-    figure1_1.setAttribute('data-event', 'Volleybal');
+    figure1_1.setAttribute('data-event', 'Volleyball');
     const img1_1 = createElement('img', figure1_1, '');
-    img1_1.setAttribute('src', '/icons/voleyball.png');
-    img1_1.setAttribute('alt', 'Voleyball image');
-    img1_1.setAttribute('data-event', 'Voleyball');
+    img1_1.setAttribute('src', '/icons/volleyball.png');
+    img1_1.setAttribute('alt', 'Volleyball image');
+    img1_1.setAttribute('data-event', 'Volleyball');
     const figCapt1_1 = createElement('figcaption', figure1_1, '');
     figCapt1_1.innerText = 'Воллейбол';
-    figCapt1_1.setAttribute('data-event', 'Voleyball');
+    figCapt1_1.setAttribute('data-event', 'Volleyball');
 
     const link1_2 = createElement('a', article1, 'games-list__item games-list__item-football');
     link1_2.setAttribute('href', '#events-page');
@@ -115,8 +109,64 @@ export default class MainPage extends Page {
 
       imgSlider.setAttribute('alt', `${i}st slider image`);
     }
+    const carouselContainerElem = document.getElementById('carouselMain') as HTMLElement;
 
+    //Carousel switch's
+
+    console.log(carouselContainerElem);
     this.eventsAfterRenderMainPage();
+    this.renderRandomEvents(this.container);
+
+    return this.container;
+  }
+
+  async renderRandomEvents(parent: HTMLElement): Promise<void> {
+    const eventMainPage = createElement('section', parent, 'events-main');
+    const wrapper = createElement('div', eventMainPage, 'wrapper_main');
+    const eventCardsContainer = createElement('div', wrapper, 'events-main__cards cards_events');
+    const linkEventsBlock = createElement('div', wrapper, 'events-main__link');
+
+    const cardsBlock = createElement('div', eventCardsContainer, 'events-main__cards cards_events');
+
+    const eventsAll: [IEvent] | undefined = await fetchEvents(this.eventsUrl);
+
+    if (eventsAll && eventsAll[0].kind) {
+      for (let i = 0; i < 3; i++) {
+        let kindSportStr = '';
+        switch (eventsAll[i].kind) {
+          case 'football':
+            kindSportStr = 'футбол';
+            break;
+          case 'basketball':
+            kindSportStr = 'баскетбол';
+            break;
+          case 'volleyball':
+            kindSportStr = 'воллейбол';
+            break;
+          case 'tennis':
+            kindSportStr = 'теннис';
+            break;
+        }
+
+        const card = createElement('div', cardsBlock, 'cards_events__item');
+        const cardKind = createElement('h3', card, 'cards_events__item-kind');
+
+        cardKind.innerText = `Матч по ${kindSportStr}у`;
+        const cardDate = createElement('div', card, 'cards_events__item-date');
+        cardDate.innerText = `Дата: ${eventsAll[i].date}`;
+        const timeBlock = createElement('div', card, 'cards_events__item-time time_block');
+
+        const timeStart = createElement('div', timeBlock, 'time_block-start');
+        timeStart.innerText = `Начало: ${eventsAll[i].time_start}`;
+
+        const timeEnd = createElement('div', timeBlock, 'time_block-end');
+        timeEnd.innerText = `Окончание: ${eventsAll[i].time_end}`;
+      }
+    }
+
+    const linkEvents = createElement('a', linkEventsBlock, 'main_page__link');
+    linkEvents.setAttribute('href', '#events-page');
+    linkEvents.innerText = 'Смотреть все игры';
   }
 
   removeActiveClass(element: Element): void {
@@ -128,13 +178,16 @@ export default class MainPage extends Page {
   }
 
   eventsAfterRenderMainPage(): void {
+    // console.log(document.querySelector('.carousel-inner'));
+
+    // console.log(document.querySelector('.carousel-item'));
     const carouselContainerElem = document.getElementById('carouselMain') as HTMLElement;
     const carouselImageContainerElem = document.querySelectorAll('.carousel-item');
     const carouselItemElem = document.querySelectorAll('.carousel__indicators-item');
 
     //Carousel switch's
 
-    console.log(carouselContainerElem);
+    // console.log(carouselContainerElem);
     carouselContainerElem?.addEventListener('click', (event) => {
       if (event.target instanceof HTMLLIElement) {
         if (event.target.dataset.target === 'carouselIndicators') {
