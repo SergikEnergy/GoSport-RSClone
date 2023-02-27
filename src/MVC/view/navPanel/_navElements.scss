@@ -1,3 +1,10 @@
+.main-content {
+  min-height: 700px;
+  height: 100%;
+}
+.navigation {
+  display: none;
+}
 .main-navigation {
   display: flex;
   align-items: center;

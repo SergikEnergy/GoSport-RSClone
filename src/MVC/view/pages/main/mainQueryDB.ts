@@ -1,18 +1,11 @@
+import { IEvent } from '../events/eventsType';
 
-import { iEvents } from "./TStype/mainTypes";
-export const fetchEventByKind = async (url:URL,kind:string) => {
+export const fetchEvents = async (url: URL) => {
   try {
     const req = await fetch(url);
-    const data = await req.json();
-    return await filterEventsByKind(data,kind);
-  }
-  catch (e){
+    const data: [IEvent] = await req.json();
+    return data;
+  } catch (e) {
     console.log(e);
   }
-}
-
-function filterEventsByKind(eventsArr:Array<iEvents>, search:string):Array<iEvents> {
-  return eventsArr
-    .filter((values)=>(values.kind === search))
-}
-
+};

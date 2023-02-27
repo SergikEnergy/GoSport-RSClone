@@ -9,7 +9,6 @@ function authorization(parent: HTMLElement) {
   const containerForms = document.querySelector('.container-forms') as HTMLDivElement;
   const popUpContainer = document.querySelector('.blackout-popup') as HTMLElement;
 
-  // const formLogIn = document.querySelector('.login-form') as HTMLFormElement;
   const nameInput = document.querySelector('#nickName') as HTMLInputElement;
   const passwordInput = document.querySelector('#password') as HTMLInputElement;
   const errorGeneral = document.querySelector('#errorGeneral') as HTMLDivElement;
@@ -77,7 +76,7 @@ function authorization(parent: HTMLElement) {
           errorGeneral.classList.add('form_hidden');
         }
         loginHandler.saveLocalStorage(response[0]._id);
-
+        location.hash = '#' + 'main-page';
         containerForms.classList.add('form_hidden');
         popUpContainer.classList.add('close');
         document.body.classList.remove('off-scroll');

@@ -9,6 +9,7 @@ import ErrorPage from '../view/pages/notFound/404';
 
 export default class Router {
   private initialPage: ProfilePage;
+
   private navigation: NavPanel;
 
   static renderNewPage(idPage: string) {
@@ -36,7 +37,11 @@ export default class Router {
   private enableRouteChange() {
     window.addEventListener('hashchange', () => {
       const hash = window.location.hash.slice(1);
-      Router.renderNewPage(hash);
+      if (window.location.hash === '' || window.location.hash === '/') {
+        Router.renderNewPage('main-page');
+      } else {
+        Router.renderNewPage(hash);
+      }
     });
   }
 
@@ -48,7 +53,6 @@ export default class Router {
   run(): void {
     const headerBlock = document.querySelector('.header') as HTMLElement;
     headerBlock.append(this.navigation.renderNavPanel());
-    Router.renderNewPage('main-page');
 
     this.enableRouteChange();
   }
