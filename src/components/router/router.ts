@@ -8,7 +8,7 @@ import NavPanel from '../view/navPanel/navElements';
 import ErrorPage from '../view/pages/notFound/404';
 
 export default class Router {
-  private initialPage: ProfilePage;
+  private initialPage: MainPage;
 
   private navigation: NavPanel;
 
