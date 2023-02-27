@@ -2,14 +2,14 @@ import { dataRu } from './data-ru';
 
 export default class SelectionLang {
   dataArr = [dataRu];
-  lang!: string | null;
+  lang!: number | null;
 
   determinationLanguage() {
     if (localStorage.getItem('lang')) {
-      this.lang = localStorage.getItem('lang');
+      this.lang = Number(localStorage.getItem('lang'));
     } else {
-      localStorage.setItem('lang', 'ru')
-      this.lang = 'ru';
+      localStorage.setItem('lang', '0')
+      this.lang = 0;
     }
     return this.lang;
   }
