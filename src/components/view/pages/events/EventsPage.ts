@@ -31,7 +31,13 @@ export default class EventsPage extends Page {
     const kindSport = createElement('div', blockFilters, 'kind-sport');
     const selectBlock = createElement('div', kindSport, 'kind-sport__select');
     const selectKind = createElement('span', selectBlock, 'kind-sport__selected');
-    selectKind.textContent = 'Вид спорта';
+
+    if (localStorage.getItem('lang') === 'ru') {
+      selectKind.textContent = `${localStorage.getItem('kindSport')}`; // поправить!!
+    } else {
+      selectKind.textContent = `${localStorage.getItem('kindSport')}`;
+    }
+    
     const caret = createElement('div', selectBlock, 'caret');
     const listGames = createElement('ul', kindSport, 'list-games');
 
@@ -39,6 +45,11 @@ export default class EventsPage extends Page {
     EventsPage.games.forEach((item) => {
       const el = createElement('li', listGames, 'list-games__item');
       el.textContent = `${item}`;
+
+      if (el.textContent === selectKind.textContent) {
+        el.classList.add('list-games__item_active');
+      } 
+
       itemsListGames.push(el);
     });
 
@@ -57,10 +68,10 @@ export default class EventsPage extends Page {
         listGames.classList.remove('list-games_active');
 
         itemsListGames.forEach((el) => {
-          el.classList.remove('list-games_active');
+          el.classList.remove('list-games__item_active');
         });
 
-        element.classList.add('list-games_active');
+        element.classList.add('list-games__item_active');
       });
     });
 

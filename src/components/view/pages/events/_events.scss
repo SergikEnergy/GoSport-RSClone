@@ -99,6 +99,11 @@
   }
 }
 
+.list-games__item_active {
+  background-color: $color-black;
+  padding-left: 1rem;
+}
+
 .date-filters {
   @include font (1.6rem, 1.8rem 500);
   padding: 1rem;

@@ -27,6 +27,13 @@ export default class MainPage extends Page {
 		и улучшай свои навыки <br>
 		в командных видах спортах`;
     const article1 = createElement('article', heroDescr1, 'games-list');
+
+    article1.addEventListener('click', (e: Event) => {
+      if (e.target instanceof HTMLElement ) {
+        window.localStorage.setItem('kindSport', `${e.target.dataset.event}`);
+      }
+    });
+
     const link1_1 = createElement('a', article1, 'games-list__item games-list__item-volleyball');
     link1_1.setAttribute('href', '#events-page');
     link1_1.setAttribute('data-event', 'Volleyball');
@@ -70,7 +77,7 @@ export default class MainPage extends Page {
     link1_4.setAttribute('href', '#events-page');
     link1_4.setAttribute('data-event', 'Tennis');
     const figure1_4 = createElement('figure', link1_4, '');
-    figure1_1.setAttribute('data-event', 'Tennis');
+    figure1_4.setAttribute('data-event', 'Tennis');
     const img1_4 = createElement('img', figure1_4, '');
     img1_4.setAttribute('src', '/icons/more-icon.svg');
     img1_4.setAttribute('alt', 'Voleyball image');
