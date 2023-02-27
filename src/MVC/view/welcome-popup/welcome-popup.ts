@@ -23,14 +23,16 @@ class PopUp {
     const welcomeButton = createElement('button', welcomePopup, 'button_welcome');
     welcomeButton.textContent = 'Начнём!';
     const formContainer = createElement('div', mainPopup, 'container-forms form_hidden');
-
+    let isClickedGoSport = true;
     welcomeButton.addEventListener('click', () => {
       welcomePopup.classList.add('welcome-popup_hidden');
       window.setTimeout(async () => {
         welcomePopup.classList.add('form_hidden');
         formContainer.classList.remove('form_hidden');
-
-        authorization(formContainer);
+        if (isClickedGoSport) {
+          authorization(formContainer);
+          isClickedGoSport = false;
+        }
       }, 1050);
     });
   }

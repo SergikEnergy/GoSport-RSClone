@@ -33,6 +33,7 @@ class NavPanel {
     Buttons.forEach((button) => {
       const buttonLink = document.createElement('a');
       buttonLink.href = `#${button.id}`;
+      buttonLink.id = `${button.id}`;
       buttonLink.className = 'main-navigation__link';
       buttonLink.innerText = `${button.text}`;
       navButtons.append(buttonLink);

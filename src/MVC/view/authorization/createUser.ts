@@ -1,8 +1,9 @@
 import NewUser from './NewUser';
+import Router from '../../router/router';
 import { IValidateCreate, ICreateUser } from './authorization.types';
 
 export default function createUser() {
-  const linkCreate = 'http://127.0.0.1:5000/api/profiles';
+  const linkCreate = 'https://go-sport-app-clone.onrender.com/api/profiles';
   const newUser = new NewUser(linkCreate);
   const parentElement = document.querySelector('.container-forms') as HTMLDivElement;
   newUser.renderForm(parentElement);
@@ -153,6 +154,7 @@ export default function createUser() {
           errorGeneral.classList.add('form_hidden');
         }
         newUser.saveLocalStorage(getNewUser._id);
+        Router.renderNewPage('main-page');
         parentElement.classList.add('form_hidden');
         popUpContainer.classList.add('close');
       }

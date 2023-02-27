@@ -9,6 +9,7 @@ import ErrorPage from '../view/pages/notFound/404';
 
 export default class Router {
   private initialPage: ProfilePage;
+
   private navigation: NavPanel;
 
   static renderNewPage(idPage: string) {
@@ -48,7 +49,6 @@ export default class Router {
   run(): void {
     const headerBlock = document.querySelector('.header') as HTMLElement;
     headerBlock.append(this.navigation.renderNavPanel());
-    Router.renderNewPage('main-page');
 
     this.enableRouteChange();
   }

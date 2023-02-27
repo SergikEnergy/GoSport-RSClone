@@ -1,7 +1,8 @@
 import createUser from './createUser';
 import LogIn from './logIn';
+import Router from '../../router/router';
 
-const logUrl = 'http://127.0.0.1:5000/api/login';
+const logUrl = 'https://go-sport-app-clone.onrender.com/api/login';
 
 function authorization(parent: HTMLElement) {
   const loginHandler = new LogIn(logUrl);
@@ -77,7 +78,7 @@ function authorization(parent: HTMLElement) {
           errorGeneral.classList.add('form_hidden');
         }
         loginHandler.saveLocalStorage(response[0]._id);
-
+        Router.renderNewPage('main-page');
         containerForms.classList.add('form_hidden');
         popUpContainer.classList.add('close');
       } else if (response.error) {
