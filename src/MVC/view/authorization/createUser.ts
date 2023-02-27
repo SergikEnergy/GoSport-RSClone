@@ -1,5 +1,4 @@
 import NewUser from './NewUser';
-import Router from '../../router/router';
 import { IValidateCreate, ICreateUser } from './authorization.types';
 
 export default function createUser() {
@@ -154,7 +153,7 @@ export default function createUser() {
           errorGeneral.classList.add('form_hidden');
         }
         newUser.saveLocalStorage(getNewUser._id);
-        Router.renderNewPage('main-page');
+        location.hash = '#' + 'main-page';
         parentElement.classList.add('form_hidden');
         popUpContainer.classList.add('close');
       }

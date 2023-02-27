@@ -37,7 +37,11 @@ export default class Router {
   private enableRouteChange() {
     window.addEventListener('hashchange', () => {
       const hash = window.location.hash.slice(1);
-      Router.renderNewPage(hash);
+      if (window.location.hash === '' || window.location.hash === '/') {
+        Router.renderNewPage('main-page');
+      } else {
+        Router.renderNewPage(hash);
+      }
     });
   }
 
