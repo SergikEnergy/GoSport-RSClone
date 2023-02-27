@@ -5,14 +5,14 @@
 @import 'base/normalize';
 @import 'base/base';
 
-@import '../mvc/view/header/header';
-@import '../mvc/view/footer/footer';
-@import '../mvc/view/welcome-popup/welcome-popup';
-@import '../mvc/view/authorization/authorization';
-@import '../mvc/view/navPanel/navElements';
-@import '../mvc/view/pages/notFound/404';
-@import '../mvc/view/pages/main/mainPage';
-@import '../mvc/view/pages/main/responsive-main';
-@import '../mvc/view/pages/events/events';
+@import '../components/view/header/header';
+@import '../components/view/footer/footer';
+@import '../components/view/welcome-popup/welcome-popup';
+@import '../components/view/authorization/authorization';
+@import '../components/view/navPanel/navElements';
+@import '../components/view/pages/notFound/404';
+@import '../components/view/pages/main/mainPage';
+@import '../components/view/pages/main/responsive-main';
+@import '../components/view/pages/events/events';
 
 @import 'components/buttons';

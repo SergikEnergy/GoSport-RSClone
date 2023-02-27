@@ -1,1 +1,0 @@
-### This folder includes scg, logo icon and other images for project

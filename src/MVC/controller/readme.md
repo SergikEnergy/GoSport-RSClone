@@ -1,1 +1,0 @@
-#### folder to functions for binding model and view page

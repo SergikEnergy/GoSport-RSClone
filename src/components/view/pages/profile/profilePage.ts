@@ -1,4 +1,4 @@
-import { createElement } from './../../template/createElement';
+import { createElement } from '../../template/createElement';
 import Page from '../../template/page';
 import './_profile.scss'
 
