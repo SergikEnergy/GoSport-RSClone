@@ -30,7 +30,12 @@ export default class Router {
 
     if (page) {
       const pageHTML = page.render();
+
       containerBase.append(pageHTML);
+      if (page.eventsAfterRenderMainPage) {
+        console.log('eventsAfterRenderMainPage', page.eventsAfterRenderMainPage);
+        page.eventsAfterRenderMainPage();
+      }
     }
   }
 

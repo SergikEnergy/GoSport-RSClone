@@ -110,12 +110,9 @@ export default class MainPage extends Page {
 
       imgSlider.setAttribute('alt', `${i}st slider image`);
     }
-    const carouselContainerElem = document.getElementById('carouselMain') as HTMLElement;
 
     //Carousel switch's
 
-    console.log(carouselContainerElem);
-    this.eventsAfterRenderMainPage();
     this.renderRandomEvents(this.container);
 
     return this.container;
@@ -179,16 +176,12 @@ export default class MainPage extends Page {
   }
 
   eventsAfterRenderMainPage(): void {
-    // console.log(document.querySelector('.carousel-inner'));
-
-    // console.log(document.querySelector('.carousel-item'));
     const carouselContainerElem = document.getElementById('carouselMain') as HTMLElement;
     const carouselImageContainerElem = document.querySelectorAll('.carousel-item');
     const carouselItemElem = document.querySelectorAll('.carousel__indicators-item');
 
     //Carousel switch's
 
-    // console.log(carouselContainerElem);
     carouselContainerElem?.addEventListener('click', (event) => {
       if (event.target instanceof HTMLLIElement) {
         if (event.target.dataset.target === 'carouselIndicators') {

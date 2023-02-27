@@ -1,4 +1,5 @@
 export default abstract class Page {
+  [x: string]: any;
   protected container: HTMLElement;
   static textObject = {};
 
