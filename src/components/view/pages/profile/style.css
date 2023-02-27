@@ -1,0 +1,11 @@
+.center {
+  display: flex;
+  max-width: 85%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  min-height: 500px;
+}
+
+.loader {
+}
