@@ -17,7 +17,7 @@ class Header {
     const arrow = createElement('span', rightBlock, 'user-arrow');
     const userList = createElement('ul', rightBlock, 'user-list');
     arrow.addEventListener('click', () => {
-      userList.classList.toggle('active');
+      userList.classList.add('active');
     });
     const userProfile = createElement('li', userList, 'user-list__item');
     userProfile.textContent = 'Profile';

@@ -79,6 +79,7 @@ function authorization(parent: HTMLElement) {
         location.hash = '#' + 'main-page';
         containerForms.classList.add('form_hidden');
         popUpContainer.classList.add('close');
+        document.body.classList.remove('off-scroll');
       } else if (response.error) {
         errorGeneral.innerText = 'Failed to fetch! Server is not started.';
         errorGeneral.classList.remove('form_hidden');

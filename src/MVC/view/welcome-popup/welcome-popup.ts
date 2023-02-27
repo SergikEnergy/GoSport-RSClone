@@ -9,6 +9,7 @@ class PopUp {
 
   renderPopup(): HTMLElement {
     const blackoutPopup = createElement('div', this.parent, 'blackout-popup');
+    this.parent.classList.add('off-scroll');
     return blackoutPopup;
   }
 
@@ -24,11 +25,13 @@ class PopUp {
     welcomeButton.textContent = 'Начнём!';
     const formContainer = createElement('div', mainPopup, 'container-forms form_hidden');
     let isClickedGoSport = true;
+
     welcomeButton.addEventListener('click', () => {
       welcomePopup.classList.add('welcome-popup_hidden');
       window.setTimeout(async () => {
         welcomePopup.classList.add('form_hidden');
         formContainer.classList.remove('form_hidden');
+
         if (isClickedGoSport) {
           authorization(formContainer);
           isClickedGoSport = false;

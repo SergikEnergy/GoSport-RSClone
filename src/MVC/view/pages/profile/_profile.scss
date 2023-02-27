@@ -1,0 +1,16 @@
+.gradient-custom {
+
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: -webkit-linear-gradient(to right bottom, #ecb603da, #f3d849);
+
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(to right bottom, #ecb603da, #f3d849)
+  }
+  .body {
+    color: #f3d849;
+    background-color: #191718;
+    font-size: 1.7rem;
+  }
+  #profile-page{
+    background-color: #e0e5e9;
+  }

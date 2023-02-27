@@ -2,6 +2,7 @@ import { createElement } from '../../template/createElement';
 import Page from '../../template/page';
 import { fetchEvents } from './mainQueryDB';
 import { IEvent } from '../events/eventsType';
+
 export default class MainPage extends Page {
   static textObject = {
     MainTitle: 'Welcome to Main Page',
