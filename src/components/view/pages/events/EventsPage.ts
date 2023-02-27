@@ -81,7 +81,15 @@ export default class EventsPage extends Page {
     valuePlayers.setAttribute('placeholder', 'Количество свободных мест');
     const buttonFilters = createElement('button', blockFilters, 'button_filters');
     buttonFilters.textContent = 'Найти';
-    const blockEvents = createElement('div', contentWrapper, 'block-events');
+    const eventsWrapper = createElement('div', contentWrapper, 'events-wrapper');
+    const blockEvents = createElement('div', eventsWrapper, 'block-events');
+    const buttonHome = createElement('button', eventsWrapper, 'button_home');
+    buttonHome.textContent = 'На главную';
+
+    buttonHome.addEventListener('click', (e: Event) => {
+      e.preventDefault();
+      location.hash = '#' + 'main-page';
+    });
 
     buttonFilters.addEventListener('click', async () => {
       const data = await this.getEvents(selectKind, dateFilters, valuePlayers);
