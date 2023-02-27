@@ -1,4 +1,4 @@
-import './styles/main.scss';
+import './sass/main.scss';
 
 import App from './components/app/app';
 
