@@ -133,3 +133,17 @@
 .user-list.active {
   display: flex;
 }
+
+.user-list__item {
+  cursor: pointer;
+  padding: 10px;
+  transition: all easy 0.5s;
+  &:hover,
+  &:target,
+  &:focus {
+    transform: scale(1.05);
+    color: #f3d849;
+    background-color: rgba(245, 215, 135, 0.4);
+    border-radius: 5px;
+  }
+}
