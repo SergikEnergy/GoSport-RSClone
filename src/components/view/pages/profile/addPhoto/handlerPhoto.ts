@@ -1,11 +1,18 @@
+import { IGetUser } from '../../../authorization/authorization.types';
 import { createElement } from '../../../template/createElement';
+import IPhoto from './handlerPhoto.types';
 
-class HandlerPhoto {
+export type HTMLElementEvent<T extends HTMLElement> = Event & {
+  target: T;
+};
+
+export default class HandlerPhoto {
   parent: HTMLElement;
 
   constructor(parent: HTMLElement) {
     this.parent = parent;
   }
+
   renderPhoto(): void {
     const pathToAvatar = './icons/defaultAvatar.png';
     //find root for avatar box
@@ -57,82 +64,70 @@ class HandlerPhoto {
     buttonImg.append(imgChange);
   }
 
-  // uploadPhoto(options = {}) {
-  //   const body = {
-  //     coach: true,
-  //     player: false,
-  //     events: ['eventID1', 'eventID2'],
-  //     nickName: 'ggggg',
-  //     personalData: {
-  //       weight: 92,
-  //       height: 187,
-  //       first_name: 'Fedor',
-  //       last_name: 'Ivanov',
-  //       games: ['basketball', 'volleyball', 'tennis'],
-  //     },
-  //     background: './urlToBG',
-  //   };
-  //   const id = localStorage.getItem('currentUserId'); //here will be the ID of current profile
-  //   const urlToUpdateProfiles = `https://go-sport-app-clone.onrender.com/api/profiles/${id}`;
+  async uploadPhoto(options: IPhoto, data: IGetUser) {
+    const body = data;
+    const id = localStorage.getItem('currentUserId'); //here will be the ID of current profile
+    const urlToUpdateProfiles = `https://go-sport-app-clone.onrender.com/api/profiles/${id}`;
 
-  //   const input = document.querySelector('#fileLoader');
-  //   const sendButton = document.querySelector('#sendAvatar');
-  //   const formAction = document.querySelector('#formAvatar');
+    const input = document.querySelector('#fileLoader') as HTMLInputElement;
+    const sendButton = document.querySelector('#sendAvatar') as HTMLButtonElement;
+    const formAction = document.querySelector('#formAvatar') as HTMLFormElement;
 
-  //   const buttonAvatar = document.getElementById('avatar-btn');
+    const buttonAvatar = document.getElementById('avatar-btn') as HTMLButtonElement;
 
-  //   if (options.accept && Array.isArray(options.accept)) {
-  //     input.setAttribute('accept', options.accept.join(','));
-  //   }
+    if (options.accept && Array.isArray(options.accept)) {
+      input.setAttribute('accept', options.accept.join(','));
+    }
 
-  //   const sendServer = async (event) => {
-  //     event.preventDefault();
-  //     const formData = new FormData();
-  //     const file = event.srcElement[0].files[0];
-  //     const keys = Object.keys(body);
-  //     for (let i = 0; i < keys.length; i++) {
-  //       formData.append(keys[i], body[keys[i]]);
-  //     }
-  //     formData.append('files', file);
-  //     console.log(...formData);
-  //     fetch(urlToUpdateProfiles, {
-  //       method: 'PUT',
-  //       body: formData,
-  //     })
-  //       .then((response) => response.json())
-  //       .then((data) => {
-  //         console.log('success', data);
-  //       })
-  //       .catch((error) => {
-  //         console.error(error);
-  //       });
-  //   };
+    async function sendServer(event: Event) {
+      event.preventDefault();
+      const formData = new FormData();
+      if (event && event.target) {
+        const file = (event.target as HTMLFormElement).files[0];
 
-  //   const handlerAvatar = () => input.click();
-  //   const handlerSubmit = () => sendButton.click();
+        const keys = Object.entries(body);
+        for (let i = 0; i < keys.length; i++) {
+          formData.append(keys[0][i], keys[1][i]);
+        }
+        formData.append('files', file);
+        console.log(...formData);
 
-  //   const changeHandler = (event) => {
-  //     // console.log(event.target.files);
-  //     if (event.target.files.length === 0) {
-  //       return;
-  //     }
-  //     handlerSubmit();
+        fetch(urlToUpdateProfiles, {
+          method: 'PUT',
+          body: formData,
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log('success', data);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
+    }
 
-  //     const files = Array.from(event.target.files);
-  //     files.forEach((file) => {
-  //       if (!file.type.match('image')) {
-  //         return;
-  //       }
-  //     });
-  //   };
-  //   buttonAvatar.addEventListener('click', handlerAvatar);
-  //   input.addEventListener('change', changeHandler);
-  //   formAction.addEventListener('submit', sendServer);
-  // }
+    const handlerAvatar = () => input.click();
+    const handlerSubmit = () => sendButton.click();
+
+    const changeHandler = (event: Event) => {
+      // console.log(event.target.files);
+      const file = event.target as HTMLInputElement;
+      if (file && file.files?.length === 0) {
+        return;
+      }
+      handlerSubmit();
+
+      if (file.files) {
+        const files = Array.from(file.files);
+        files.forEach((file) => {
+          if (!file.type.match('image')) {
+            return;
+          }
+        });
+      }
+    };
+    buttonAvatar.addEventListener('click', handlerAvatar);
+    input.addEventListener('change', changeHandler);
+    formAction.addEventListener('submit', sendServer);
+  }
 }
-
-export default HandlerPhoto;
-
-/*uploadPhoto({
-  accept: ['.png', '.jpg', '.jpeg', '.gif', '.svg'],
-});*/
