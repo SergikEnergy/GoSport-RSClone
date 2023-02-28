@@ -1,10 +1,7 @@
 import { createElement } from '../template/createElement';
 import authorization from '../authorization/authorization';
 import SelectionLang from '../pages/translation/lang-selection';
-
-interface IData {
-  [key: string]: string;
-}
+import { IData } from '../pages/translation/dataType';
 class PopUp {
   parent: HTMLElement;
   chooseLangComponent!: SelectionLang;
