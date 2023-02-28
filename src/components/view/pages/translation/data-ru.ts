@@ -28,6 +28,7 @@ export const dataRu = {
   tennis: 'Теннис',
   football: 'Футбол',
   volleyball: 'Волейбол',
+  else_games: 'Ещё игры',
   create_account_data_check: 'Неправильные даты в форме. Проверьте данные, пожалуйста',
   create_account_note: 'поля не обязательны для заполнения',
   create_account_button: 'Создать нового пользователя',
