@@ -63,6 +63,7 @@
   },
   "dependencies": {
     "express": "^4.18.2",
+    "filemanager-webpack-plugin": "^8.0.0",
     "html-loader": "^4.2.0",
     "mongoose": "^6.9.0",
     "source-map-loader": "^4.0.1"

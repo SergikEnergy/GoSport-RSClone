@@ -25,6 +25,10 @@ export default class ProfilePage extends Page {
       const centerContainer = createElement('div', this.container, 'center');
       const loaderPhoto = createElement('div', centerContainer, 'loader');
       const photoHandler = new HandlerPhoto(loaderPhoto);
+      const goHomeButton = document.createElement('div');
+      goHomeButton.className = 'btn btn-secondary';
+      goHomeButton.innerHTML = '<a class = "error-page_link" href="#main-page">На главную</a></div>';
+
       photoHandler.renderPhoto();
       if (userId) {
         const data = await this.getCurrentUserInfo(urlToBase, userId);

@@ -13,6 +13,7 @@ class Header {
 
     const wrapper = createElement('div', parent, 'wrapper header__wrapper');
     const logo = createElement('a', wrapper, 'logo');
+    logo.setAttribute('href', '#main-page');
     createElement('span', logo, 'logo__image');
     const logoText = createElement('span', logo, 'logo__text');
     logoText.textContent = 'GoSport';
@@ -48,12 +49,12 @@ class Header {
     });
     const userProfile = createElement('li', userList, 'user-list__item');
     userProfile.textContent = `${this.wordsChooseArr.heder_profile}`;
-    
+
     userProfile.addEventListener('click', () => {
       userList.classList.remove('active');
       this.redirectToProfile();
     });
-    
+
     const userSingOut = createElement('li', userList, 'user-list__item');
     userSingOut.textContent = `${this.wordsChooseArr.header_profile_exit}`;
   }
@@ -62,7 +63,7 @@ class Header {
     this.chooseLangComponent = new SelectionLang();
     this.wordsArr = this.chooseLangComponent.dataArr;
     this.chooseLang = this.chooseLangComponent.determinationLanguage();
-    this.wordsChooseArr = this.wordsArr[this.chooseLang]
+    this.wordsChooseArr = this.wordsArr[this.chooseLang];
   }
 
   redirectToProfile(): void {

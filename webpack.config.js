@@ -1,6 +1,7 @@
 const path = require('path');
 const EslintPlugin = require('eslint-webpack-plugin');
 // const { merge } = require('webpack-merge');
+const FileManagerPlugin = require('filemanager-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -106,6 +107,21 @@ module.exports = {
     new EslintPlugin({ extensions: 'ts' }),
     new MiniCssExtractPlugin({
       filename: 'styles.css',
+    }),
+    new FileManagerPlugin({
+      events: {
+        onStart: {
+          delete: ['dist'],
+        },
+        onEnd: {
+          copy: [
+            {
+              source: 'public',
+              destination: 'dist',
+            },
+          ],
+        },
+      },
     }),
   ],
 };
