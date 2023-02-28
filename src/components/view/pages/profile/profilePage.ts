@@ -30,7 +30,7 @@ export default class ProfilePage extends Page {
         const data = await this.getCurrentUserInfo(urlToBase, userId);
 
         if (data && data.personalData) {
-          const contentBlock = createElement('div', centerContainer, 'content');
+          const contentBlock = createElement('div', centerContainer, 'content_profile');
           const nickUser = createElement('h1', contentBlock, 'content-nick');
           nickUser.innerHTML = `Логин: <span class="nickName_inner">${data.nickName}</span>`;
           const nameUser = createElement('h2', contentBlock, 'content-firstName');
