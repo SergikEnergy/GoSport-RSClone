@@ -72,4 +72,8 @@ export const dataEn = {
   error_page_not_found: 'Page not found',
   error_page_no_exist: 'The page you\'re looking for doesn\'t exist',
   error_page_button: 'Go home page',
+
+  user_name: 'Username',
+  user_lastname: 'User\'s last name',
+  user_games: 'Preferred games',
 };

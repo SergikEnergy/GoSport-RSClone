@@ -2,11 +2,18 @@ import { createElement } from './../../template/createElement';
 import Page from '../../template/page';
 import { IGetUser } from '../../authorization/authorization.types';
 import HandlerPhoto from './addPhoto/handlerPhoto';
+import SelectionLang from '../translation/lang-selection';
+import { IData } from '../translation/dataType';
 
 const userId = localStorage.getItem('currentUserId');
 const urlToBase = `https://go-sport-app-clone.onrender.com/api/profiles`;
 
 export default class ProfilePage extends Page {
+  chooseLangComponent!: SelectionLang;
+  chooseLang!: number;
+  wordsArr!: IData[];
+  wordsChooseArr!: IData;
+
   static textObject = {
     MainTitle: 'ProfilePage',
   };
@@ -16,6 +23,7 @@ export default class ProfilePage extends Page {
   }
 
   render() {
+    this.getData();
     this.renderAfterDate();
     return this.container;
   }
@@ -27,7 +35,7 @@ export default class ProfilePage extends Page {
       const photoHandler = new HandlerPhoto(loaderPhoto);
       const goHomeButton = document.createElement('div');
       goHomeButton.className = 'btn btn-secondary';
-      goHomeButton.innerHTML = '<a class = "error-page_link" href="#main-page">На главную</a></div>';
+      goHomeButton.innerHTML = `<a class = "error-page_link" href="#main-page">${this.wordsChooseArr.button_on_main_page}</a></div>`;
 
       photoHandler.renderPhoto();
       if (userId) {
@@ -36,15 +44,15 @@ export default class ProfilePage extends Page {
         if (data && data.personalData) {
           const contentBlock = createElement('div', centerContainer, 'content_profile');
           const nickUser = createElement('h1', contentBlock, 'content-nick');
-          nickUser.innerHTML = `Логин: <span class="nickName_inner">${data.nickName}</span>`;
+          nickUser.innerHTML = `${this.wordsChooseArr.authorization_login}: <span class="nickName_inner">${data.nickName}</span>`;
           const nameUser = createElement('h2', contentBlock, 'content-firstName');
-          nameUser.innerHTML = `Имя пользователя: <span class="name_inner">${data.personalData.first_name}</span>`;
+          nameUser.innerHTML = `${this.wordsChooseArr.user_name}: <span class="name_inner">${data.personalData.first_name}</span>`;
           const lastNameUser = createElement('h2', contentBlock, 'content-lastName');
-          lastNameUser.innerHTML = `Фамилия пользователя: <span class="lastName_inner">${data.personalData.last_name}</span>`;
+          lastNameUser.innerHTML = `${this.wordsChooseArr.user_lastname}: <span class="lastName_inner">${data.personalData.last_name}</span>`;
           const preferGames = createElement('p', contentBlock, 'content-games');
           const titlePreferGames = createElement('div', preferGames, 'content-games_title');
           const wrapperGamesItem = createElement('div', preferGames, 'content-games_container');
-          titlePreferGames.innerText = 'Предпочитаемые игры';
+          titlePreferGames.innerText = `${this.wordsChooseArr.user_games}:`;
           for (let i = 0; i < data.personalData.games.length; i += 1) {
             const preferGamesFoot = createElement('span', wrapperGamesItem, 'content-games_item');
             preferGamesFoot.innerText = `${data.personalData.games[i]}`;
@@ -71,6 +79,13 @@ export default class ProfilePage extends Page {
     } catch (err) {
       console.log({ error: 'error by getting user', data: false });
     }
+  }
+
+  getData() {
+    this.chooseLangComponent = new SelectionLang();
+    this.wordsArr = this.chooseLangComponent.dataArr;
+    this.chooseLang = this.chooseLangComponent.determinationLanguage();
+    this.wordsChooseArr = this.wordsArr[this.chooseLang]
   }
 }
 

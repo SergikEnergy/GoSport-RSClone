@@ -4,7 +4,7 @@ export const dataRu = {
   welcome_button: 'Начнём!',
 
   authorization_header: 'Вход',
-  authorization_login: 'Вход',
+  authorization_login: 'Логин',
   authorization_login_check: 'Пользователь не найден, введите другое имя пользователя, пожалуйста',
   authorization_button: 'Продолжить',
   authorization_message: 'У вас нет учетной записи? Создать аккаунт',
@@ -72,4 +72,8 @@ export const dataRu = {
   error_page_not_found: 'Страница не найдена',
   error_page_no_exist: 'Страница, которую вы ищете, не существует',
   error_page_button: 'Перейти на главную страницу',
+
+  user_name: 'Имя пользователя',
+  user_lastname: 'Фамилия пользователя',
+  user_games: 'Предпочитаемые игры',
 };
