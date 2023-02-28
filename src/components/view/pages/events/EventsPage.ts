@@ -16,9 +16,6 @@ export default class EventsPage extends Page {
 
   static url = 'https://go-sport-app-clone.onrender.com/api/events';
 
-  static games = ['Волейбол', 'Футбол', 'Баскетбол', 'Теннис'];
-  langNow = localStorage.getItem('lang');
-
   constructor(id: string) {
     super(id);
   }
@@ -40,18 +37,13 @@ export default class EventsPage extends Page {
     const kindSport = createElement('div', blockFilters, 'kind-sport');
     const selectBlock = createElement('div', kindSport, 'kind-sport__select');
     const selectKind = createElement('span', selectBlock, 'kind-sport__selected');
-
-    if (localStorage.getItem('lang') === 'ru') {
-      selectKind.textContent = `${localStorage.getItem('kindSport')}`; // поправить!!
-    } else {
-      selectKind.textContent = `${localStorage.getItem('kindSport')}`;
-    }
+    selectKind.textContent = `${localStorage.getItem('kindSport')}`;
     
     const caret = createElement('div', selectBlock, 'caret');
     const listGames = createElement('ul', kindSport, 'list-games');
-
+    const games = [`${this.wordsChooseArr.volleyball}`, `${this.wordsChooseArr.football}`, `${this.wordsChooseArr.basketball}`, `${this.wordsChooseArr.tennis}`];
     const itemsListGames: HTMLElement[] = [];
-    EventsPage.games.forEach((item) => {
+    games.forEach((item) => {
       const el = createElement('li', listGames, 'list-games__item');
       el.textContent = `${item}`;
 
@@ -135,7 +127,7 @@ export default class EventsPage extends Page {
     const correctDate = date.value.split('-').reverse().join('.');
     let kind: string;
     // this.langNow === 'ru'
-    if (this.langNow) {
+    if (localStorage.getItem('lang') === '0') {
       const typeSport = `${kindSport.textContent}`;
       kind = KindsSport[typeSport as keyof typeof KindsSport];
     } else {

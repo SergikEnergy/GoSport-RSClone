@@ -18,7 +18,25 @@ class Header {
     logoText.textContent = 'GoSport';
     const rightBlock = createElement('div', wrapper, 'header__right-block');
     const lang = createElement('button', rightBlock, 'button_lang');
-    lang.textContent = 'ru';
+
+    if (localStorage.getItem('lang') === '1') {
+      lang.textContent = 'en';
+    } else {
+      lang.textContent = 'ru';
+    }
+
+    lang.addEventListener('click', () => {
+      if (lang.textContent === 'ru') {
+        localStorage.setItem('lang', '1');
+        lang.textContent = 'en';
+        location.reload();
+      } else {
+        localStorage.setItem('lang', '0');
+        lang.textContent = 'ru';
+        location.reload();
+      }
+    });
+
     createElement('span', rightBlock, 'theme');
     const cityList = createElement('p', rightBlock, 'city-list');
     cityList.textContent = `${this.wordsChooseArr.header_city}`;

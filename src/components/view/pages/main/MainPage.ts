@@ -48,7 +48,7 @@ export default class MainPage extends Page {
     const img1_1 = createElement('img', figure1_1, '');
     img1_1.setAttribute('src', '/icons/volleyball.png');
     img1_1.setAttribute('alt', 'Volleyball image');
-    img1_1.setAttribute('data-event', 'Volleyball');
+    img1_1.setAttribute('data-event', `${this.wordsChooseArr.volleyball}`);
     const figCapt1_1 = createElement('figcaption', figure1_1, '');
     figCapt1_1.innerText = `${this.wordsChooseArr.volleyball[0].toUpperCase() + this.wordsChooseArr.volleyball.slice(1)}`;
     figCapt1_1.setAttribute('data-event', 'Volleyball');
@@ -61,7 +61,7 @@ export default class MainPage extends Page {
     const img1_2 = createElement('img', figure1_2, '');
     img1_2.setAttribute('src', '/icons/football.png');
     img1_2.setAttribute('alt', 'Football image');
-    img1_2.setAttribute('data-event', 'Football');
+    img1_2.setAttribute('data-event', `${this.wordsChooseArr.football}`);
     const figCapt1_2 = createElement('figcaption', figure1_2, '');
     figCapt1_2.innerText = `${this.wordsChooseArr.football[0].toUpperCase() + this.wordsChooseArr.football.slice(1)}`;
     figCapt1_2.setAttribute('data-event', 'Football');
@@ -74,7 +74,7 @@ export default class MainPage extends Page {
     const img1_3 = createElement('img', figure1_3, '');
     img1_3.setAttribute('src', '/icons/basketball-ball.png');
     img1_3.setAttribute('alt', 'Basketball image');
-    img1_3.setAttribute('data-event', 'Basketball');
+    img1_3.setAttribute('data-event', `${this.wordsChooseArr.basketball}`);
     const figCapt1_3 = createElement('figcaption', figure1_3, '');
     figCapt1_3.innerText = `${this.wordsChooseArr.basketball[0].toUpperCase() + this.wordsChooseArr.basketball.slice(1)}`;
     figCapt1_3.setAttribute('data-event', 'Basketball');
@@ -87,7 +87,7 @@ export default class MainPage extends Page {
     const img1_4 = createElement('img', figure1_4, '');
     img1_4.setAttribute('src', '/icons/more-icon.svg');
     img1_4.setAttribute('alt', 'Other games');
-    img1_4.setAttribute('data-event', 'Tennis');
+    img1_4.setAttribute('data-event', `${this.wordsChooseArr.tennis}`);
     const figCapt1_4 = createElement('figcaption', figure1_4, '');
     figCapt1_4.innerText = `${this.wordsChooseArr.else_games[0].toUpperCase() + this.wordsChooseArr.else_games.slice(1)}`;
     figCapt1_4.setAttribute('data-event', 'Tennis');
@@ -149,16 +149,16 @@ export default class MainPage extends Page {
         let kindSportStr = '';
         switch (eventsAll[i].kind) {
           case 'football':
-            kindSportStr = 'футбол';
+            kindSportStr = `${this.wordsChooseArr.football}`;
             break;
           case 'basketball':
-            kindSportStr = 'баскетбол';
+            kindSportStr = `${this.wordsChooseArr.basketball}`;
             break;
           case 'volleyball':
-            kindSportStr = 'воллейбол';
+            kindSportStr = `${this.wordsChooseArr.volleyball}`;
             break;
           case 'tennis':
-            kindSportStr = 'теннис';
+            kindSportStr = `${this.wordsChooseArr.tennis}`;
             break;
         }
 

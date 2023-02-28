@@ -1,7 +1,8 @@
 import { dataRu } from './data-ru';
+import { dataEn } from './data-en';
 
 export default class SelectionLang {
-  dataArr = [dataRu];
+  dataArr = [dataRu, dataEn];
   lang!: number | null;
 
   determinationLanguage() {
