@@ -1,9 +1,18 @@
 import createUser from './createUser';
 import LogIn from './logIn';
+import SelectionLang from '../pages/translation/lang-selection';
+import { IData } from '../pages/translation/dataType';
 
 const logUrl = 'https://go-sport-app-clone.onrender.com/api/login';
 
 function authorization(parent: HTMLElement) {
+  let chooseLangComponent: SelectionLang;
+  let chooseLang: number;
+  let wordsArr: IData[];
+  let wordsChooseArr: IData;
+
+  getData();
+
   const loginHandler = new LogIn(logUrl);
   loginHandler.renderForm(parent);
   const containerForms = document.querySelector('.container-forms') as HTMLDivElement;
@@ -81,11 +90,11 @@ function authorization(parent: HTMLElement) {
         popUpContainer.classList.add('close');
         document.body.classList.remove('off-scroll');
       } else if (response.error) {
-        errorGeneral.innerText = 'Failed to fetch! Server is not started.';
+        errorGeneral.innerText = `${wordsChooseArr.fetch_error}`;
         errorGeneral.classList.remove('form_hidden');
       }
     } catch (err) {
-      errorGeneral.innerText = 'Failed to fetch! Server is not started.';
+      errorGeneral.innerText = `${wordsChooseArr.fetch_error}`;
       errorGeneral.classList.remove('form_hidden');
       console.log(err);
     }
@@ -99,6 +108,12 @@ function authorization(parent: HTMLElement) {
     containerForms.classList.toggle('active-form');
   });
 
+  function getData() {
+    chooseLangComponent = new SelectionLang();
+    wordsArr = chooseLangComponent.dataArr;
+    chooseLang = chooseLangComponent.determinationLanguage();
+    wordsChooseArr = wordsArr[chooseLang]
+  }
   // return currentUser;
 }
 

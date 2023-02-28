@@ -1,8 +1,14 @@
 import { createElement } from '../template/createElement';
 import authorization from '../authorization/authorization';
-
+import SelectionLang from '../pages/translation/lang-selection';
+import { IData } from '../pages/translation/dataType';
 class PopUp {
   parent: HTMLElement;
+  chooseLangComponent!: SelectionLang;
+  chooseLang!: number;
+  wordsArr!: IData[];
+  wordsChooseArr!: IData;
+
   constructor(parent: HTMLElement) {
     this.parent = parent;
   }
@@ -14,15 +20,15 @@ class PopUp {
   }
 
   renderWelcomePopup(): void {
+    this.getData();
     const mainPopup = document.querySelector('.blackout-popup') as HTMLDivElement;
     const welcomePopup = createElement('div', mainPopup, 'welcome-popup');
     const welcomeHeader = createElement('p', welcomePopup, 'welcome-popup__header');
-    welcomeHeader.textContent = 'Добро пожаловать в GoSport!';
+    welcomeHeader.textContent = `${this.wordsChooseArr.welcome_header}`;
     const welcomeText = createElement('p', welcomePopup, 'welcome-popup__text');
-    welcomeText.textContent =
-      'Ищешь, где поиграть в футбол, баскетбол или может теннис? Или ищешь компанию для игры? В GoSport ты сможешь найти и то, и другое. Здесь мы собираем все доступные площадки города и людей, которые хотят поиграть в любимый вид спорта и весело провести время. Если интересно, то присоединяйся к нам!';
+    welcomeText.textContent = `${this.wordsChooseArr.welcome_text}`;
     const welcomeButton = createElement('button', welcomePopup, 'button_welcome');
-    welcomeButton.textContent = 'Начнём!';
+    welcomeButton.textContent = `${this.wordsChooseArr.welcome_button}`;
     const formContainer = createElement('div', mainPopup, 'container-forms form_hidden');
     let isClickedGoSport = true;
 
@@ -38,6 +44,13 @@ class PopUp {
         }
       }, 1050);
     });
+  }
+
+  getData() {
+    this.chooseLangComponent = new SelectionLang();
+    this.wordsArr = this.chooseLangComponent.dataArr;
+    this.chooseLang = this.chooseLangComponent.determinationLanguage();
+    this.wordsChooseArr = this.wordsArr[this.chooseLang]
   }
 }
 

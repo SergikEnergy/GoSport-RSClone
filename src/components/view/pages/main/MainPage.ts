@@ -2,8 +2,14 @@ import { createElement } from '../../template/createElement';
 import Page from '../../template/page';
 import { fetchEvents } from './mainQueryDB';
 import { IEvent } from '../events/eventsType';
+import SelectionLang from '../translation/lang-selection';
+import { IData } from '../translation/dataType';
 
 export default class MainPage extends Page {
+  chooseLangComponent!: SelectionLang;
+  chooseLang!: number;
+  wordsArr!: IData[];
+  wordsChooseArr!: IData;
   static textObject = {
     MainTitle: 'Welcome to Main Page',
   };
@@ -15,6 +21,8 @@ export default class MainPage extends Page {
   }
 
   render() {
+    this.getData();
+
     const sectionHero = createElement('section', this.container, 'hero position-relative');
     const containerHero = createElement('div', sectionHero, 'container-fluid h-100');
     const rowHero = createElement('div', containerHero, 'row');
@@ -23,9 +31,7 @@ export default class MainPage extends Page {
 
     const heroDescr1 = createElement('div', colHero1, 'hero__desription');
     const h1One = createElement('h1', heroDescr1, '');
-    h1One.innerHTML = `Играй, тренируйся <br>
-		и улучшай свои навыки <br>
-		в командных видах спортах`;
+    h1One.innerHTML = `${this.wordsChooseArr.first_section_text}`;
     const article1 = createElement('article', heroDescr1, 'games-list');
 
     article1.addEventListener('click', (e: Event) => {
@@ -42,9 +48,9 @@ export default class MainPage extends Page {
     const img1_1 = createElement('img', figure1_1, '');
     img1_1.setAttribute('src', '/icons/volleyball.png');
     img1_1.setAttribute('alt', 'Volleyball image');
-    img1_1.setAttribute('data-event', 'Volleyball');
+    img1_1.setAttribute('data-event', `${this.wordsChooseArr.volleyball}`);
     const figCapt1_1 = createElement('figcaption', figure1_1, '');
-    figCapt1_1.innerText = 'Воллейбол';
+    figCapt1_1.innerText = `${this.wordsChooseArr.volleyball[0].toUpperCase() + this.wordsChooseArr.volleyball.slice(1)}`;
     figCapt1_1.setAttribute('data-event', 'Volleyball');
 
     const link1_2 = createElement('a', article1, 'games-list__item games-list__item-football');
@@ -55,9 +61,9 @@ export default class MainPage extends Page {
     const img1_2 = createElement('img', figure1_2, '');
     img1_2.setAttribute('src', '/icons/football.png');
     img1_2.setAttribute('alt', 'Football image');
-    img1_2.setAttribute('data-event', 'Football');
+    img1_2.setAttribute('data-event', `${this.wordsChooseArr.football}`);
     const figCapt1_2 = createElement('figcaption', figure1_2, '');
-    figCapt1_2.innerText = 'Футбол';
+    figCapt1_2.innerText = `${this.wordsChooseArr.football[0].toUpperCase() + this.wordsChooseArr.football.slice(1)}`;
     figCapt1_2.setAttribute('data-event', 'Football');
 
     const link1_3 = createElement('a', article1, 'games-list__item games-list__item-basketball');
@@ -68,9 +74,9 @@ export default class MainPage extends Page {
     const img1_3 = createElement('img', figure1_3, '');
     img1_3.setAttribute('src', '/icons/basketball-ball.png');
     img1_3.setAttribute('alt', 'Basketball image');
-    img1_3.setAttribute('data-event', 'Basketball');
+    img1_3.setAttribute('data-event', `${this.wordsChooseArr.basketball}`);
     const figCapt1_3 = createElement('figcaption', figure1_3, '');
-    figCapt1_3.innerText = 'Баскетбол';
+    figCapt1_3.innerText = `${this.wordsChooseArr.basketball[0].toUpperCase() + this.wordsChooseArr.basketball.slice(1)}`;
     figCapt1_3.setAttribute('data-event', 'Basketball');
 
     const link1_4 = createElement('a', article1, 'games-list__item games-list__item-more-games');
@@ -80,10 +86,10 @@ export default class MainPage extends Page {
     figure1_4.setAttribute('data-event', 'Tennis');
     const img1_4 = createElement('img', figure1_4, '');
     img1_4.setAttribute('src', '/icons/more-icon.svg');
-    img1_4.setAttribute('alt', 'Voleyball image');
-    img1_4.setAttribute('data-event', 'Tennis');
+    img1_4.setAttribute('alt', 'Other games');
+    img1_4.setAttribute('data-event', `${this.wordsChooseArr.tennis}`);
     const figCapt1_4 = createElement('figcaption', figure1_4, '');
-    figCapt1_4.innerText = 'Ещё игры';
+    figCapt1_4.innerText = `${this.wordsChooseArr.else_games[0].toUpperCase() + this.wordsChooseArr.else_games.slice(1)}`;
     figCapt1_4.setAttribute('data-event', 'Tennis');
 
     const heroImages = createElement('div', colHero2, 'hero__images h-100');
@@ -143,38 +149,38 @@ export default class MainPage extends Page {
         let kindSportStr = '';
         switch (eventsAll[i].kind) {
           case 'football':
-            kindSportStr = 'футбол';
+            kindSportStr = `${this.wordsChooseArr.football}`;
             break;
           case 'basketball':
-            kindSportStr = 'баскетбол';
+            kindSportStr = `${this.wordsChooseArr.basketball}`;
             break;
           case 'volleyball':
-            kindSportStr = 'воллейбол';
+            kindSportStr = `${this.wordsChooseArr.volleyball}`;
             break;
           case 'tennis':
-            kindSportStr = 'теннис';
+            kindSportStr = `${this.wordsChooseArr.tennis}`;
             break;
         }
 
         const card = createElement('div', cardsBlock, 'cards_events__item');
         const cardKind = createElement('h3', card, 'cards_events__item-kind');
 
-        cardKind.innerText = `Матч по ${kindSportStr}у`;
+        cardKind.innerText = `${kindSportStr}`;
         const cardDate = createElement('div', card, 'cards_events__item-date');
-        cardDate.innerText = `Дата: ${eventsAll[i].date}`;
+        cardDate.innerText = `${this.wordsChooseArr.date}: ${eventsAll[i].date}`;
         const timeBlock = createElement('div', card, 'cards_events__item-time time_block');
 
         const timeStart = createElement('div', timeBlock, 'time_block-start');
-        timeStart.innerText = `Начало: ${eventsAll[i].time_start}`;
+        timeStart.innerText = `${this.wordsChooseArr.begin_time}: ${eventsAll[i].time_start}`;
 
         const timeEnd = createElement('div', timeBlock, 'time_block-end');
-        timeEnd.innerText = `Окончание: ${eventsAll[i].time_end}`;
+        timeEnd.innerText = `${this.wordsChooseArr.end_time}: ${eventsAll[i].time_end}`;
       }
     }
 
     const linkEvents = createElement('a', linkEventsBlock, 'main_page__link');
     linkEvents.setAttribute('href', '#events-page');
-    linkEvents.innerText = 'Смотреть все игры';
+    linkEvents.innerText = `${this.wordsChooseArr.button_on_all_game}`;
   }
 
   removeActiveClass(element: Element): void {
@@ -233,5 +239,12 @@ export default class MainPage extends Page {
   saveToLocalStorage(kindGames: string): void {
     if (kindGames) localStorage.setItem('selected_kind', `${kindGames}`);
     // console.log(kindGames);
+  }
+
+  getData() {
+    this.chooseLangComponent = new SelectionLang();
+    this.wordsArr = this.chooseLangComponent.dataArr;
+    this.chooseLang = this.chooseLangComponent.determinationLanguage();
+    this.wordsChooseArr = this.wordsArr[this.chooseLang]
   }
 }

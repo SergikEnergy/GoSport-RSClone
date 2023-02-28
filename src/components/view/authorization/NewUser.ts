@@ -1,9 +1,18 @@
 import { createElement } from '../template/createElement';
 import LogIn from './logIn';
 import { ICreateUser, IValidateCreate } from './authorization.types';
+import SelectionLang from '../pages/translation/lang-selection';
+import { IData } from '../pages/translation/dataType';
 
 export default class NewUser extends LogIn {
+  chooseLangComponent!: SelectionLang;
+  chooseLang!: number;
+  wordsArr!: IData[];
+  wordsChooseArr!: IData;
+
   renderForm(parent: HTMLElement): void {
+    this.getData();
+
     const wrapperSignUp = createElement('div', parent, 'form-wrapper wrapper_signup');
 
     const formCreate = createElement('form', wrapperSignUp, 'create-form');
@@ -11,15 +20,15 @@ export default class NewUser extends LogIn {
     formCreate.setAttribute('id', 'createAccount');
 
     const createTitle = createElement('h2', formCreate, 'create-form__title');
-    createTitle.textContent = 'Create account';
+    createTitle.textContent = `${this.wordsChooseArr.create_account_header}`;
 
     const createFormMessage = createElement('div', formCreate, 'create-form__message create-form__message_error form_hidden');
     createFormMessage.setAttribute('id', 'errorGeneralCreate');
-    createFormMessage.textContent = 'Incorrect dates in form. Check data, please';
+    createFormMessage.textContent = `${this.wordsChooseArr.create_account_data_check}`;
 
     const inputGroupName = createElement('div', formCreate, 'create-form__input-group');
     const inputName = createElement('input', inputGroupName, 'create-form__input');
-    inputName.setAttribute('placeholder', 'Input user name');
+    inputName.setAttribute('placeholder', `${this.wordsChooseArr.create_account_login_placeholder}`);
     inputName.setAttribute('id', 'nickNameNew');
     inputName.setAttribute('type', 'text');
     inputName.setAttribute('autofocus', 'true');
@@ -27,37 +36,37 @@ export default class NewUser extends LogIn {
     const errorName = createElement('div', inputGroupName, 'create-form__input-error-message');
     errorName.classList.add('form_hidden');
     errorName.setAttribute('id', 'errorNameNewLog');
-    errorName.textContent = 'Incorrect nick name';
+    errorName.textContent = `${this.wordsChooseArr.create_account_login_check}`;
 
     const inputGroupPassword = createElement('div', formCreate, 'create-form__input-group');
     const inputPassword = createElement('input', inputGroupPassword, 'create-form__input');
-    inputPassword.setAttribute('placeholder', 'Input password');
+    inputPassword.setAttribute('placeholder', `${this.wordsChooseArr.create_account_password_placeholder}`);
     inputPassword.setAttribute('id', 'passwordNew');
     inputPassword.setAttribute('type', 'password');
     inputPassword.setAttribute('required', 'true');
     const errorPassword = createElement('div', inputGroupPassword, 'create-form__input-error-message form_hidden');
     errorPassword.setAttribute('id', 'passwordErrorNew');
-    errorPassword.textContent = 'Incorrect password';
+    errorPassword.textContent = `${this.wordsChooseArr.create_account_password_check2}`;
 
     const inputGroupPasswordTwo = createElement('div', formCreate, 'create-form__input-group');
     const inputPasswordTwo = createElement('input', inputGroupPasswordTwo, 'create-form__input');
-    inputPasswordTwo.setAttribute('placeholder', 'Confirm your password');
+    inputPasswordTwo.setAttribute('placeholder', `${this.wordsChooseArr.create_account_again_password_placeholder}`);
     inputPasswordTwo.setAttribute('id', 'passwordNewRepeat');
     inputPasswordTwo.setAttribute('type', 'password');
     inputPasswordTwo.setAttribute('required', 'true');
     const errorPasswordTwo = createElement('div', inputGroupPasswordTwo, 'create-form__input-error-message form_hidden');
     errorPasswordTwo.setAttribute('id', 'passwordErrorNewTwo');
-    errorPasswordTwo.textContent = 'Passwords not match';
+    errorPasswordTwo.textContent = `${this.wordsChooseArr.create_account_again_password_check}`;
 
     const inputGroupFirstName = createElement('div', formCreate, 'create-form__input-group nonrequired-field');
     const inputFirstName = createElement('input', inputGroupFirstName, 'create-form__input');
-    inputFirstName.setAttribute('placeholder', 'Input your first name');
+    inputFirstName.setAttribute('placeholder', `${this.wordsChooseArr.create_account_first_name_placeholder}`);
     inputFirstName.setAttribute('id', 'firstName');
     inputFirstName.setAttribute('type', 'text');
 
     const inputGroupLastName = createElement('div', formCreate, 'create-form__input-group nonrequired-field');
     const inputLastName = createElement('input', inputGroupLastName, 'create-form__input');
-    inputLastName.setAttribute('placeholder', 'Input your last name');
+    inputLastName.setAttribute('placeholder', `${this.wordsChooseArr.create_account_last_name_placeholder}`);
     inputLastName.setAttribute('id', 'lastName');
     inputLastName.setAttribute('type', 'text');
 
@@ -65,7 +74,7 @@ export default class NewUser extends LogIn {
     const inputCoach = createElement('input', inputGroupCoach, 'create-form__input input-checkbox');
     const labelCoach = createElement('label', inputGroupCoach);
     labelCoach.setAttribute('for', 'coach');
-    labelCoach.textContent = `check this, if you're a coach`;
+    labelCoach.textContent = `${this.wordsChooseArr.create_account_check_coach}`;
     inputCoach.setAttribute('id', 'coach');
     inputCoach.setAttribute('value', 'coach');
     inputCoach.setAttribute('name', 'coach');
@@ -75,20 +84,20 @@ export default class NewUser extends LogIn {
     const inputPlayer = createElement('input', inputGroupPlayer, 'create-form__input input-checkbox');
     const labelPlayer = createElement('label', inputGroupPlayer);
     labelPlayer.setAttribute('for', 'player');
-    labelPlayer.textContent = `check this, if you're a player`;
+    labelPlayer.textContent = `${this.wordsChooseArr.create_account_check_player}`;
     inputPlayer.setAttribute('id', 'player');
     inputPlayer.setAttribute('type', 'checkbox');
 
     const inputGroupGames = createElement('div', formCreate, 'create-form__input-group checkbox-group checkbox-group_games');
     const selectGameText = createElement('p', inputGroupGames, 'games__title');
-    selectGameText.textContent = `Select games which you'll play in: `;
+    selectGameText.textContent = `${this.wordsChooseArr.create_account_select_games}`;
 
     const subGroupOne = createElement('div', inputGroupGames, 'subGroup group_one');
     const subGroupTwo = createElement('div', inputGroupGames, 'subGroup group_two');
     const inputBasket = createElement('input', subGroupOne, 'create-form__input input-checkbox');
     const labelBasket = createElement('label', subGroupOne, 'label_games');
     labelBasket.setAttribute('for', 'basket');
-    labelBasket.textContent = `basketball`;
+    labelBasket.textContent = `${this.wordsChooseArr.basketball}`;
     inputBasket.setAttribute('id', 'basket');
     inputBasket.setAttribute('value', 'basket');
     inputBasket.setAttribute('name', 'selectGames');
@@ -97,7 +106,7 @@ export default class NewUser extends LogIn {
     const inputTennis = createElement('input', subGroupOne, 'create-form__input input-checkbox');
     const labelTennis = createElement('label', subGroupOne, 'label_games');
     labelTennis.setAttribute('for', 'tennis');
-    labelTennis.textContent = `tennis`;
+    labelTennis.textContent = `${this.wordsChooseArr.tennis}`;
     inputTennis.setAttribute('id', 'tennis');
     inputTennis.setAttribute('value', 'tennis');
     inputTennis.setAttribute('name', 'selectGames');
@@ -106,7 +115,7 @@ export default class NewUser extends LogIn {
     const inputFootball = createElement('input', subGroupTwo, 'create-form__input input-checkbox');
     const labelFootball = createElement('label', subGroupTwo, 'label_games');
     labelFootball.setAttribute('for', 'football');
-    labelFootball.textContent = `football`;
+    labelFootball.textContent = `${this.wordsChooseArr.football}`;
     inputFootball.setAttribute('id', 'football');
     inputFootball.setAttribute('value', 'football');
     inputFootball.setAttribute('name', 'selectGames');
@@ -115,25 +124,25 @@ export default class NewUser extends LogIn {
     const inputVolley = createElement('input', subGroupTwo, 'create-form__input input-checkbox');
     const labelVolley = createElement('label', subGroupTwo, 'label_games');
     labelVolley.setAttribute('for', 'volley');
-    labelVolley.textContent = `volleyball`;
+    labelVolley.textContent = `${this.wordsChooseArr.volleyball}`;
     inputVolley.setAttribute('id', 'volley');
     inputVolley.setAttribute('value', 'volley');
     inputVolley.setAttribute('name', 'selectGames');
     inputVolley.setAttribute('type', 'checkbox');
 
     const notes = createElement('div', formCreate, 'form_notes');
-    notes.innerHTML = `<span class="notes_symbol">*</span>  fields are not required`;
+    notes.innerHTML = `<span class="notes_symbol">*</span> ${this.wordsChooseArr.create_account_note}`;
 
     const createButton = createElement('button', formCreate, 'form__button');
     createButton.setAttribute('id', 'createButton');
     createButton.setAttribute('type', 'submit');
-    createButton.textContent = 'Create new user';
+    createButton.textContent = `${this.wordsChooseArr.create_account_button}`;
 
     const redirectCreate = createElement('p', formCreate, 'form__text');
     const redirectCreateLink = createElement('a', redirectCreate, 'form__link');
     redirectCreateLink.setAttribute('id', 'linkLogIn');
     redirectCreateLink.setAttribute('href', './');
-    redirectCreateLink.textContent = `Already have an account? Log into account`;
+    redirectCreateLink.textContent = `${this.wordsChooseArr.create_account_message}`;
   }
 
   comparePassword(password: string, passwordTwo: string): boolean {
@@ -178,5 +187,12 @@ export default class NewUser extends LogIn {
         message: 'error by creating user',
       };
     }
+  }
+
+  getData() {
+    this.chooseLangComponent = new SelectionLang();
+    this.wordsArr = this.chooseLangComponent.dataArr;
+    this.chooseLang = this.chooseLangComponent.determinationLanguage();
+    this.wordsChooseArr = this.wordsArr[this.chooseLang]
   }
 }

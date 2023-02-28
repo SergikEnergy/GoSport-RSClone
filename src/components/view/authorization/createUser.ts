@@ -1,7 +1,16 @@
 import NewUser from './NewUser';
 import { IValidateCreate, ICreateUser } from './authorization.types';
+import SelectionLang from '../pages/translation/lang-selection';
+import { IData } from '../pages/translation/dataType';
 
 export default function createUser() {
+  let chooseLangComponent: SelectionLang;
+  let chooseLang: number;
+  let wordsArr: IData[];
+  let wordsChooseArr: IData;
+
+  getData();
+
   const linkCreate = 'https://go-sport-app-clone.onrender.com/api/profiles';
   const newUser = new NewUser(linkCreate);
   const parentElement = document.querySelector('.container-forms') as HTMLDivElement;
@@ -148,7 +157,7 @@ export default function createUser() {
       const getNewUser = await newUser.createUser(userForm);
       if (getNewUser?.data && getNewUser.data === 'userName') {
         errorGeneral.classList.remove('form_hidden');
-        errorGeneral.textContent = `User with such name already exists`;
+        errorGeneral.textContent = `${wordsChooseArr.user_name_error}`;
       } else if (getNewUser && getNewUser.nickName) {
         if (!errorGeneral.classList.contains('form_hidden')) {
           errorGeneral.classList.add('form_hidden');
@@ -160,7 +169,14 @@ export default function createUser() {
       }
     } catch (err) {
       errorGeneral.classList.remove('form_hidden');
-      errorGeneral.textContent = `Ooops! Server is not started.`;
+      errorGeneral.textContent = `${wordsChooseArr.fetch_error}`;
     }
   });
+
+  function getData() {
+    chooseLangComponent = new SelectionLang();
+    wordsArr = chooseLangComponent.dataArr;
+    chooseLang = chooseLangComponent.determinationLanguage();
+    wordsChooseArr = wordsArr[chooseLang]
+  }
 }
