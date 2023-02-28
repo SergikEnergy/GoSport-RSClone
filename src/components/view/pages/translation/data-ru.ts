@@ -66,4 +66,9 @@ export const dataRu = {
 
   fetch_error: 'Ошибка! Сервер не запущен.',
   user_name_error: 'Пользователь с таким именем уже существует',
+
+  error_page_header: 'Упс',
+  error_page_not_found: 'Страница не найдена',
+  error_page_no_exist: 'Страница, которую вы ищете, не существует',
+  error_page_button: 'Перейти на главную страницу',
 };
