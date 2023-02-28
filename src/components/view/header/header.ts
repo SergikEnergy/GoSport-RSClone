@@ -21,8 +21,16 @@ class Header {
     });
     const userProfile = createElement('li', userList, 'user-list__item');
     userProfile.textContent = 'Profile';
+    userProfile.addEventListener('click', () => {
+      userList.classList.remove('active');
+      this.redirectToProfile();
+    });
     const userSingOut = createElement('li', userList, 'user-list__item');
     userSingOut.textContent = 'Sing out';
+  }
+
+  redirectToProfile(): void {
+    window.location.hash = 'profile-page';
   }
 }
 
