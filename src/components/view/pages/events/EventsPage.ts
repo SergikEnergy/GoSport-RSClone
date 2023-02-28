@@ -1,8 +1,15 @@
 import Page from '../../template/page';
 import { createElement } from '../../template/createElement';
 import { IEvent, KindsSport } from './eventsType';
+import SelectionLang from '../translation/lang-selection';
+import { IData } from '../translation/dataType';
 
 export default class EventsPage extends Page {
+  chooseLangComponent!: SelectionLang;
+  chooseLang!: number;
+  wordsArr!: IData[];
+  wordsChooseArr!: IData;
+
   static textObject = {
     MainTitle: 'Welcome to existing games',
   };
@@ -10,12 +17,14 @@ export default class EventsPage extends Page {
   static url = 'https://go-sport-app-clone.onrender.com/api/events';
 
   static games = ['Волейбол', 'Футбол', 'Баскетбол', 'Теннис'];
+  langNow = localStorage.getItem('lang');
 
   constructor(id: string) {
     super(id);
   }
 
   render() {
+    this.getData();
     this.renderEventPage(this.container);
     return this.container;
   }
@@ -23,11 +32,11 @@ export default class EventsPage extends Page {
   renderEventPage(parent: HTMLElement): void {
     const wrapper = createElement('div', parent, 'wrapper wrapper_events');
     const headerPage = createElement('h2', wrapper, 'header-events');
-    headerPage.textContent = 'Список найденных событий на основе выбранных параметров';
+    headerPage.textContent = `${this.wordsChooseArr.events_page_header}`;
     const contentWrapper = createElement('div', wrapper, 'content');
     const blockFilters = createElement('div', contentWrapper, 'filters');
     const headerFilters = createElement('h3', blockFilters, 'filters-header');
-    headerFilters.textContent = 'Фильтр';
+    headerFilters.textContent = `${this.wordsChooseArr.filter}`;
     const kindSport = createElement('div', blockFilters, 'kind-sport');
     const selectBlock = createElement('div', kindSport, 'kind-sport__select');
     const selectKind = createElement('span', selectBlock, 'kind-sport__selected');
@@ -89,13 +98,13 @@ export default class EventsPage extends Page {
     dateFilters.setAttribute('value', `${this.getTodayDate()}`);
     const valuePlayers = <HTMLInputElement>createElement('input', blockFilters, 'value-players');
     valuePlayers.setAttribute('maxlength', '2');
-    valuePlayers.setAttribute('placeholder', 'Количество свободных мест');
+    valuePlayers.setAttribute('placeholder', `${this.wordsChooseArr.input_rest_players_placeholder}`);
     const buttonFilters = createElement('button', blockFilters, 'button_filters');
-    buttonFilters.textContent = 'Найти';
+    buttonFilters.textContent = `${this.wordsChooseArr.button_find}`;
     const eventsWrapper = createElement('div', contentWrapper, 'events-wrapper');
     const blockEvents = createElement('div', eventsWrapper, 'block-events');
     const buttonHome = createElement('button', eventsWrapper, 'button_home');
-    buttonHome.textContent = 'На главную';
+    buttonHome.textContent = `${this.wordsChooseArr.button_on_main_page}`;
 
     buttonHome.addEventListener('click', (e: Event) => {
       e.preventDefault();
@@ -110,8 +119,7 @@ export default class EventsPage extends Page {
       } else {
         blockEvents.innerHTML = '';
         const textMessage = createElement('div', blockEvents, 'message-text');
-        textMessage.textContent =
-          'По данным фильтрам - событий не найдено! Измениете параметры фильтров для поиска похожих или других событий';
+        textMessage.textContent = `${this.wordsChooseArr.events_page_not_found}`;
       }
     });
   }
@@ -125,8 +133,14 @@ export default class EventsPage extends Page {
 
   async getEvents(kindSport: HTMLElement, date: HTMLInputElement, valuePlayers: HTMLInputElement): Promise<IEvent[]> {
     const correctDate = date.value.split('-').reverse().join('.');
-    const typeSport = `${kindSport.textContent}`;
-    const kind = KindsSport[typeSport as keyof typeof KindsSport];
+    let kind: string;
+    // this.langNow === 'ru'
+    if (this.langNow) {
+      const typeSport = `${kindSport.textContent}`;
+      kind = KindsSport[typeSport as keyof typeof KindsSport];
+    } else {
+      kind = `${kindSport.textContent?.toLocaleLowerCase()}`;
+    }
 
     const res = await fetch(`${EventsPage.url}`, {
       headers: {
@@ -148,14 +162,14 @@ export default class EventsPage extends Page {
       const typeEvent = createElement('p', infoBlock, 'event__type');
       typeEvent.textContent = `${item.kind.toLocaleUpperCase()}`;
       const restPlaces = createElement('p', infoBlock, 'event__places event__item');
-      restPlaces.textContent = `Осталось ${item.rest_players} мест`;
+      restPlaces.textContent = `${this.wordsChooseArr.events_page_remain_places} ${item.rest_players}`;
       const dateBlock = createElement('div', eventBlock, 'event__date-info');
       const dateEvent = createElement('p', dateBlock, 'event__date event__item');
       dateEvent.textContent = `${item.date}`;
       const timeStart = createElement('p', dateBlock, 'event__time event__item');
-      timeStart.textContent = `Начало игры в ${item.time_start}`;
+      timeStart.textContent = `${this.wordsChooseArr.begin_time} ${item.time_start}`;
       const eventButton = createElement('button', eventBlock, 'button_event');
-      eventButton.textContent = 'Подробнее';
+      eventButton.textContent = `${this.wordsChooseArr.button_else}`;
 
       eventButton.addEventListener('click', async () => {
         const dataEvent = await this.getEvent(item._id);
@@ -180,15 +194,15 @@ export default class EventsPage extends Page {
     const nameGame = createElement('p', eventPopup, 'event-popup__name');
     nameGame.textContent = `${data.kind.toLocaleUpperCase()}`;
     const dateGame = createElement('p', eventPopup, 'event-popup__date');
-    dateGame.textContent = `День проведения:  ${data.date}`;
+    dateGame.textContent = `${this.wordsChooseArr.day_present} ${data.date}`;
     const placeName = createElement('p', eventPopup, 'event-popup__place');
-    placeName.textContent = `Место проведения: ${data.place_name}`;
+    placeName.textContent = `${this.wordsChooseArr.place_present} ${data.place_name}`;
     const gameStart = createElement('p', eventPopup, 'event-popup__time');
-    gameStart.textContent = `Время проведения: ${data.time_start} - ${data.time_end}`;
+    gameStart.textContent = `${this.wordsChooseArr.time_present} ${data.time_start} - ${data.time_end}`;
     const freePlaces = createElement('p', eventPopup, 'event-popup__free-places');
-    freePlaces.textContent = `Свободных мест: ${data.rest_players}`;
+    freePlaces.textContent = `${this.wordsChooseArr.events_page_remain_places} ${data.rest_players}`;
     const button = createElement('button', eventPopup, 'button_add');
-    button.textContent = 'Присоединиться';
+    button.textContent = `${this.wordsChooseArr.button_add_event}`;
 
     button.addEventListener('click', async () => {
       const newData = structuredClone(data);
@@ -200,13 +214,13 @@ export default class EventsPage extends Page {
       }
 
       if (newData.players.includes(idPlayer)) {
-        const message = 'Вы уже состоите в данном мероприятии!';
+        const message = `${this.wordsChooseArr.text_if_already_add}`;
         this.renderMessage(eventPopup, message);
       } else if (!valuePlayers?.value) {
-        const message = 'Вы не указали в фильтре сколько человек хочет присоединиться к данному мероприятию!';
+        const message = `${this.wordsChooseArr.text_for_value_error}`;
         this.renderMessage(eventPopup, message);
       } else if (newData.rest_players < Number(valuePlayers.value)){
-        const message = 'Недостаточно свободных мест на данном мероприятии!';
+        const message = `${this.wordsChooseArr.text_if_rest_playces_low}`;
         this.renderMessage(eventPopup, message)
       } else {
         newData.players.push(idPlayer);
@@ -215,7 +229,7 @@ export default class EventsPage extends Page {
         const req = await this.addPlayerInEvent(data._id, newData);
 
         if (req) {
-          const errorMessage = 'Вы успешно добавлены на мероприятие!';
+          const errorMessage = `${this.wordsChooseArr.text_if_success}`;
           this.renderMessage(eventPopup, errorMessage);
         }
       }
@@ -253,5 +267,12 @@ export default class EventsPage extends Page {
     setTimeout((): void => {
       message.remove();
     }, 2000);
+  }
+
+  getData() {
+    this.chooseLangComponent = new SelectionLang();
+    this.wordsArr = this.chooseLangComponent.dataArr;
+    this.chooseLang = this.chooseLangComponent.determinationLanguage();
+    this.wordsChooseArr = this.wordsArr[this.chooseLang]
   }
 }

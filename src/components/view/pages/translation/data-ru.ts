@@ -49,6 +49,7 @@ export const dataRu = {
 
   events_page_header: 'Список найденных событий на основе выбранных параметров',
   events_page_not_found: 'По данным фильтрам - событий не найдено! Измениете параметры фильтров для поиска похожих или других событий',
+  filter: 'Фильтр',
   input_rest_players_placeholder: 'Количество человек на добавление',
   events_page_remain_places: 'Свободных мест:',
   button_else: 'Подробнее',
