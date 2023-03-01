@@ -57,6 +57,10 @@ class Header {
 
     const userSingOut = createElement('li', userList, 'user-list__item');
     userSingOut.textContent = `${this.wordsChooseArr.header_profile_exit}`;
+
+    userSingOut.addEventListener('click', () => {
+      this.logout();
+    });
   }
 
   getData() {
@@ -64,6 +68,11 @@ class Header {
     this.wordsArr = this.chooseLangComponent.dataArr;
     this.chooseLang = this.chooseLangComponent.determinationLanguage();
     this.wordsChooseArr = this.wordsArr[this.chooseLang];
+  }
+
+  logout(): void {
+    window.location.href = '';
+    window.location.reload();
   }
 
   redirectToProfile(): void {
