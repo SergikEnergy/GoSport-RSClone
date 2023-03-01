@@ -72,7 +72,6 @@ class Header {
 
   logout(): void {
     window.location.href = '';
-    window.location.reload();
   }
 
   redirectToProfile(): void {
