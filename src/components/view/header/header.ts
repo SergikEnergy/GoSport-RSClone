@@ -27,14 +27,16 @@ class Header {
     }
 
     lang.addEventListener('click', () => {
+      const currentPage = document.querySelector('#mainContent') as HTMLDivElement;
+      const currentRenderElement = (currentPage.firstChild as HTMLDivElement).id;
       if (lang.textContent === 'ru') {
         localStorage.setItem('lang', '1');
         lang.textContent = 'en';
-        location.reload();
+        window.location.hash = `${currentRenderElement}-${lang.textContent}`;
       } else {
         localStorage.setItem('lang', '0');
         lang.textContent = 'ru';
-        location.reload();
+        window.location.hash = `${currentRenderElement}-${lang.textContent}`;
       }
     });
 

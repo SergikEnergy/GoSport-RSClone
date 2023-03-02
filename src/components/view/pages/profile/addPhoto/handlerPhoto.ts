@@ -13,8 +13,8 @@ export default class HandlerPhoto {
     this.parent = parent;
   }
 
-  renderPhoto(): void {
-    const pathToAvatar = './icons/defaultAvatar.png';
+  renderPhoto(urlToAvatar: string): void {
+    const pathToAvatar = `https://go-sport-app-clone.onrender.com/${urlToAvatar}`;
     //find root for avatar box
 
     const loaderContainer = createElement('div', this.parent, 'loader__container content-box');
@@ -66,8 +66,8 @@ export default class HandlerPhoto {
 
   async uploadPhoto(options: IPhoto, data: IGetUser) {
     const body = data;
-    const id = localStorage.getItem('currentUserId'); //here will be the ID of current profile
-    const urlToUpdateProfiles = `https://go-sport-app-clone.onrender.com/api/profiles/${id}`;
+    // const id = localStorage.getItem('currentUserId'); //here will be the ID of current profile
+    // const urlToUpdateProfiles = `https://go-sport-app-clone.onrender.com/api/profiles/${id}`;
 
     const input = document.querySelector('#fileLoader') as HTMLInputElement;
     const sendButton = document.querySelector('#sendAvatar') as HTMLButtonElement;
@@ -79,35 +79,38 @@ export default class HandlerPhoto {
       input.setAttribute('accept', options.accept.join(','));
     }
 
-    async function sendServer(event: Event) {
-      event.preventDefault();
+    async function sendServer(file: HTMLInputElement) {
       const formData = new FormData();
-      if (event && event.target) {
-        const file = (event.target as HTMLFormElement).files[0];
+      if (file && file.files) {
+        const fileFromInput = file.files[0];
 
         const keys = Object.entries(body);
+        // console.log(keys);
+        // console.log(body);
         for (let i = 0; i < keys.length; i++) {
-          formData.append(keys[0][i], keys[1][i]);
+          formData.append(keys[i][0], keys[i][1]);
         }
-        formData.append('files', file);
+        formData.append('files', fileFromInput);
         console.log(...formData);
 
-        fetch(urlToUpdateProfiles, {
-          method: 'PUT',
-          body: formData,
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            console.log('success', data);
-          })
-          .catch((error) => {
-            console.error(error);
-          });
+        //   fetch(urlToUpdateProfiles, {
+        //     method: 'PUT',
+        //     body: formData,
+        //   })
+        //     .then((response) => response.json())
+        //     .then((data) => {
+        //       console.log('success', data);
+        //     })
+        //     .catch((error) => {
+        //       console.error(error);
+        //     });
       }
     }
 
     const handlerAvatar = () => input.click();
-    const handlerSubmit = () => sendButton.click();
+    const handlerSubmit = () => {
+      sendButton.click();
+    };
 
     const changeHandler = (event: Event) => {
       // console.log(event.target.files);
@@ -116,6 +119,7 @@ export default class HandlerPhoto {
         return;
       }
       handlerSubmit();
+      sendServer(file);
 
       if (file.files) {
         const files = Array.from(file.files);
@@ -128,6 +132,14 @@ export default class HandlerPhoto {
     };
     buttonAvatar.addEventListener('click', handlerAvatar);
     input.addEventListener('change', changeHandler);
-    formAction.addEventListener('submit', sendServer);
+    formAction.addEventListener('submit', (e) => {
+      e.preventDefault();
+    });
   }
+
+  // changeAvatar(photoUrl: string) {
+  //   const baseUrl = `https://go-sport-app-clone.onrender.com/`;
+  //   const newUrlToPhoto = baseUrl + photoUrl;
+  //   const PhotoElement = document.querySelector();
+  // }
 }

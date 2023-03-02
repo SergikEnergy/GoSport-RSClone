@@ -12,11 +12,17 @@ export default class Router {
 
   private navigation: NavPanel;
 
-  static renderNewPage(idPage: string) {
+  static renderNewPage(idPageRare: string) {
     const containerBase = document.querySelector('.main-content') as HTMLElement;
     containerBase.setAttribute('id', 'mainContent');
     containerBase.replaceChildren();
     let page: Page | null = null;
+    let idPage = idPageRare;
+    if (idPageRare.includes('-ru')) {
+      idPage = idPageRare.replace('-ru', '').trim();
+    } else if (idPageRare.includes('-en')) {
+      idPage = idPageRare.replace('-en', '').trim();
+    }
 
     if (idPage === PageIds.MainPageUrl) {
       page = new MainPage(idPage);

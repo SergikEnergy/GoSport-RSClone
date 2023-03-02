@@ -132,7 +132,7 @@ export default function createUser() {
 
   createButton.addEventListener('click', async (e) => {
     e.preventDefault();
-
+    // location.hash = '';
     try {
       const userForm: ICreateUser = {
         nickName: nickInput.value,
@@ -177,6 +177,6 @@ export default function createUser() {
     chooseLangComponent = new SelectionLang();
     wordsArr = chooseLangComponent.dataArr;
     chooseLang = chooseLangComponent.determinationLanguage();
-    wordsChooseArr = wordsArr[chooseLang]
+    wordsChooseArr = wordsArr[chooseLang];
   }
 }

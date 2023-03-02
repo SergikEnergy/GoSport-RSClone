@@ -73,6 +73,7 @@ function authorization(parent: HTMLElement) {
 
   loginButton.addEventListener('click', async (e) => {
     e.preventDefault();
+    // location.hash = '';
     try {
       const response = await loginHandler.getLogData(nameInput.value, passwordInput.value);
 
@@ -112,7 +113,7 @@ function authorization(parent: HTMLElement) {
     chooseLangComponent = new SelectionLang();
     wordsArr = chooseLangComponent.dataArr;
     chooseLang = chooseLangComponent.determinationLanguage();
-    wordsChooseArr = wordsArr[chooseLang]
+    wordsChooseArr = wordsArr[chooseLang];
   }
   // return currentUser;
 }

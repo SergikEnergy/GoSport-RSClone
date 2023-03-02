@@ -9,10 +9,9 @@ export default class SelectionLang {
     if (localStorage.getItem('lang')) {
       this.lang = Number(localStorage.getItem('lang'));
     } else {
-      localStorage.setItem('lang', '0')
+      localStorage.setItem('lang', '0');
       this.lang = 0;
     }
     return this.lang;
   }
-  
 }

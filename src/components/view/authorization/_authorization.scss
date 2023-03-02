@@ -290,6 +290,7 @@
   }
   &:not([disabled]):hover {
     background-color: rgba(58, 192, 25, 1);
+    cursor: pointer;
   }
   &:active {
     transform: scale(0.95);

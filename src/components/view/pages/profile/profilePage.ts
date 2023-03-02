@@ -33,15 +33,14 @@ export default class ProfilePage extends Page {
       const centerContainer = createElement('div', this.container, 'center');
       const loaderPhoto = createElement('div', centerContainer, 'loader');
       const photoHandler = new HandlerPhoto(loaderPhoto);
-      const goHomeButton = document.createElement('div');
-      goHomeButton.className = 'btn btn-secondary';
-      goHomeButton.innerHTML = `<a class = "error-page_link" href="#main-page">${this.wordsChooseArr.button_on_main_page}</a></div>`;
+      const goHomeButton = createElement('div', this.container, 'button_home profile_home');
+      goHomeButton.innerHTML = `<a class = "error-page_link" href="#main-page">${this.wordsChooseArr.button_on_main_page}</a>`;
 
-      photoHandler.renderPhoto();
       if (userId) {
         const data = await this.getCurrentUserInfo(urlToBase, userId);
 
         if (data && data.personalData) {
+          photoHandler.renderPhoto(data.avatar);
           const contentBlock = createElement('div', centerContainer, 'content_profile');
           const nickUser = createElement('h1', contentBlock, 'content-nick');
           nickUser.innerHTML = `${this.wordsChooseArr.authorization_login}: <span class="nickName_inner">${data.nickName}</span>`;
@@ -85,7 +84,7 @@ export default class ProfilePage extends Page {
     this.chooseLangComponent = new SelectionLang();
     this.wordsArr = this.chooseLangComponent.dataArr;
     this.chooseLang = this.chooseLangComponent.determinationLanguage();
-    this.wordsChooseArr = this.wordsArr[this.chooseLang]
+    this.wordsChooseArr = this.wordsArr[this.chooseLang];
   }
 }
 

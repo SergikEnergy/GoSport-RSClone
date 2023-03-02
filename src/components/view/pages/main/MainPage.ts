@@ -35,7 +35,7 @@ export default class MainPage extends Page {
     const article1 = createElement('article', heroDescr1, 'games-list');
 
     article1.addEventListener('click', (e: Event) => {
-      if (e.target instanceof HTMLElement ) {
+      if (e.target instanceof HTMLElement) {
         window.localStorage.setItem('kindSport', `${e.target.dataset.event}`);
       }
     });
@@ -123,11 +123,11 @@ export default class MainPage extends Page {
 
       imgSlider.setAttribute('alt', `${i}st slider image`);
     }
-    const carouselContainerElem = document.getElementById('carouselMain') as HTMLElement;
+    // const carouselContainerElem = document.getElementById('carouselMain') as HTMLElement;
 
     //Carousel switch's
 
-    console.log(carouselContainerElem);
+    // console.log(carouselContainerElem);
     this.eventsAfterRenderMainPage();
     this.renderRandomEvents(this.container);
 
@@ -245,6 +245,6 @@ export default class MainPage extends Page {
     this.chooseLangComponent = new SelectionLang();
     this.wordsArr = this.chooseLangComponent.dataArr;
     this.chooseLang = this.chooseLangComponent.determinationLanguage();
-    this.wordsChooseArr = this.wordsArr[this.chooseLang]
+    this.wordsChooseArr = this.wordsArr[this.chooseLang];
   }
 }

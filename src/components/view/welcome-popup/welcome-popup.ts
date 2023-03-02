@@ -40,6 +40,7 @@ class PopUp {
 
         if (isClickedGoSport) {
           authorization(formContainer);
+          location.hash = '';
           isClickedGoSport = false;
         }
       }, 1050);
@@ -50,7 +51,7 @@ class PopUp {
     this.chooseLangComponent = new SelectionLang();
     this.wordsArr = this.chooseLangComponent.dataArr;
     this.chooseLang = this.chooseLangComponent.determinationLanguage();
-    this.wordsChooseArr = this.wordsArr[this.chooseLang]
+    this.wordsChooseArr = this.wordsArr[this.chooseLang];
   }
 }
 
