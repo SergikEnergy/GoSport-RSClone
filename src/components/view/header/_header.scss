@@ -1,0 +1,149 @@
+.header {
+  @include font(2.6rem, 3rem);
+  padding: 5px;
+  background-color: $color-main-dark;
+
+  @include media-tablet {
+    @include font(2rem, 2.2rem);
+  }
+}
+
+.wrapper {
+  max-width: 90vw;
+  margin: 0 auto;
+}
+
+.header__wrapper {
+  display: flex;
+  justify-content: space-between;
+  color: $color-white;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: 0.5s ease;
+
+  &:hover {
+    color: $color-yellow;
+  }
+}
+
+.logo__image {
+  background-image: url(../assets/img/header_ball.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 50px;
+  height: 50px;
+  background-color: $color-white;
+  border-radius: 50%;
+
+  @include media-tablet {
+    width: 34px;
+    height: 34px;
+  }
+}
+
+.header__right-block {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  @include font(2rem, 2rem);
+  position: relative;
+
+  @include media-tablet {
+    @include font(1.6rem, 1.8rem);
+  }
+
+  @include media-mobile {
+    gap: 10px;
+  }
+}
+
+.theme {
+  background-image: url(../assets/img/moon.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  transition: 0.5s ease;
+
+  &:hover {
+    transform: scale(1.2);
+  }
+}
+
+.user-logo {
+  background-image: url(../assets/img/user.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: $color-white;
+  margin-right: 5px;
+  cursor: pointer;
+
+  @include media-tablet {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.user-arrow {
+  width: 0;
+  height: 0;
+  border-top: 7px solid $color-white;
+  border-right: 7px solid transparent;
+  border-left: 7px solid transparent;
+  cursor: pointer;
+  transition: 0.5s ease;
+  margin-left: -20px;
+
+  &:hover {
+    border-top: 7px solid $color-yellow;
+  }
+
+  @include media-tablet {
+    border-top: 5px solid $color-white;
+    border-right: 5px solid transparent;
+    border-left: 5px solid transparent;
+    margin-left: -10px;
+  }
+}
+
+.user-list {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  @include font(1.8rem, 2rem);
+  background-color: $color-main-dark;
+  padding: 10px;
+  border: 1px solid $color-black;
+  border-radius: 5px;
+  position: absolute;
+  top: 45px;
+  right: 5px;
+  color: $color-white;
+  z-index: 10;
+}
+
+.user-list.active {
+  display: flex;
+}
+
+.user-list__item {
+  cursor: pointer;
+  padding: 10px;
+  transition: all easy 0.5s;
+  &:hover,
+  &:target,
+  &:focus {
+    transform: scale(1.05);
+    color: #f3d849;
+    background-color: rgba(245, 215, 135, 0.4);
+    border-radius: 5px;
+  }
+}

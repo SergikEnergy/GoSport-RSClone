@@ -1,0 +1,32 @@
+html {
+  font-family: 'Roboto', Arial, Verdana, sans-serif;
+  font-size: 10px;
+  line-height: 10px;
+  color: $color-white;
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  background-color: $color-white;
+}
+
+main {
+  flex: 1 1 auto;
+}
+
+h2 {
+  @include font (3rem, 3.2rem, 700);
+  text-align: center;
+}
+
+h3 {
+  @include font (2.6rem, 2.6rem, 700);
+  text-align: center;
+}
+
+.off-scroll {
+  overflow: hidden;
+}

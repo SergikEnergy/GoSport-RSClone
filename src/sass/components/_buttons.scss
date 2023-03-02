@@ -1,0 +1,70 @@
+.button_lang {
+  background-color: inherit;
+  @include font (2rem, 2rem);
+  color: inherit;
+  cursor: pointer;
+  transition: .5s ease;
+
+  &:hover {
+    color: $color-yellow;
+  }
+
+  @include media-tablet {
+    @include font (1.6rem, 1.8rem);
+  }
+}
+
+.button_welcome {
+  background-color: transparent;
+  @include font (2rem, 2rem, 600);
+  border: 2px solid $color-white;
+  border-radius: 20px;
+  padding: 10px 30px;
+  cursor: pointer;
+  transition: .5s ease;
+
+  &:hover {
+    background-color: $color-yellow;
+  }
+
+  @include media-mobile {
+    @include font (1.6rem, 1.8rem, 700);
+  }
+}
+
+.button_filters, .button_event, .button_add, .button_home {
+  background-color: $color-main-dark;
+  @include font (2rem, 2rem);
+  color: $color-white;
+  border-radius: 10px;
+  padding: 10px 30px;
+  max-width: fit-content;
+  cursor: pointer;
+  transition: .5s ease;
+
+  &:hover {
+    background-color: $color-blue;
+  }
+}
+
+.button_event {
+  max-width: inherit;
+
+  @include media-mobile {
+    @include font (1.8rem, 1.8rem);
+    padding: 1rem;
+  }
+}
+
+.button_add {
+  @include media-mobile {
+    @include font (1.8rem, 1.8rem);
+    padding: 1rem .5rem;
+  }
+}
+
+.button_home {
+  max-height: 40px;
+  padding: 1rem 2rem;
+  margin: 0 auto;
+}
