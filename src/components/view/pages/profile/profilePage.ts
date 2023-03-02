@@ -30,10 +30,11 @@ export default class ProfilePage extends Page {
 
   async renderAfterDate() {
     try {
-      const centerContainer = createElement('div', this.container, 'center');
+      const wrapperElement = createElement('div', this.container, 'wrapper_profile');
+      const centerContainer = createElement('div', wrapperElement, 'center');
       const loaderPhoto = createElement('div', centerContainer, 'loader');
       const photoHandler = new HandlerPhoto(loaderPhoto);
-      const goHomeButton = createElement('div', this.container, 'button_home profile_home');
+      const goHomeButton = createElement('div', wrapperElement, 'profile_home');
       goHomeButton.innerHTML = `<a class = "error-page_link" href="#main-page">${this.wordsChooseArr.button_on_main_page}</a>`;
 
       if (userId) {
