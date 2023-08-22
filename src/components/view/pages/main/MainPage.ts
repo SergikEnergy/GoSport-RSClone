@@ -23,6 +23,7 @@ export default class MainPage extends Page {
   render() {
     this.getData();
 
+
     const sectionHero = createElement('section', this.container, 'hero position-relative');
     const containerHero = createElement('div', sectionHero, 'container-fluid h-100');
     const rowHero = createElement('div', containerHero, 'row');
@@ -41,7 +42,7 @@ export default class MainPage extends Page {
     });
 
     const linkVolley = createElement('a', article1, 'games-list__item games-list__item-volleyball');
-    linkVolley.setAttribute('href', '#events-page');
+    this.changeLink(linkVolley);
     linkVolley.setAttribute('data-event', 'Volleyball');
     const figureVolley = createElement('figure', linkVolley, '');
     figureVolley.setAttribute('data-event', 'Volleyball');
@@ -54,7 +55,7 @@ export default class MainPage extends Page {
     figCaptVolley.setAttribute('data-event', 'Volleyball');
 
     const linkFoot = createElement('a', article1, 'games-list__item games-list__item-football');
-    linkFoot.setAttribute('href', '#events-page');
+    this.changeLink(linkFoot);
     linkFoot.setAttribute('data-event', 'Football');
     const figureFoot = createElement('figure', linkFoot, '');
     figureFoot.setAttribute('data-event', 'Football');
@@ -67,7 +68,7 @@ export default class MainPage extends Page {
     figCaptFoot.setAttribute('data-event', 'Football');
 
     const linkBasket = createElement('a', article1, 'games-list__item games-list__item-basketball');
-    linkBasket.setAttribute('href', '#events-page');
+    this.changeLink(linkBasket);
     linkBasket.setAttribute('data-event', 'Basketball');
     const figureBasket = createElement('figure', linkBasket, '');
     figureBasket.setAttribute('data-event', 'Basketball');
@@ -80,7 +81,7 @@ export default class MainPage extends Page {
     figCaptBasket.setAttribute('data-event', 'Basketball');
 
     const linkTennis = createElement('a', article1, 'games-list__item games-list__item-more-games');
-    linkTennis.setAttribute('href', '#events-page');
+    this.changeLink(linkTennis);
     linkTennis.setAttribute('data-event', 'Tennis');
     const figureTennis = createElement('figure', linkTennis, '');
     figureTennis.setAttribute('data-event', 'Tennis');
@@ -123,14 +124,11 @@ export default class MainPage extends Page {
 
       imgSlider.setAttribute('alt', `${i}st slider image`);
     }
-    // const carouselContainerElem = document.getElementById('carouselMain') as HTMLElement;
 
     //Carousel switch's
 
-    // console.log(carouselContainerElem);
 
     this.renderRandomEvents(this.container);
-
     return this.container;
   }
 
@@ -179,7 +177,7 @@ export default class MainPage extends Page {
     }
 
     const linkEvents = createElement('a', linkEventsBlock, 'main_page__link');
-    linkEvents.setAttribute('href', '#events-page');
+    this.changeLink(linkEvents);
     linkEvents.innerText = `${this.wordsChooseArr.button_on_all_game}`;
     this.eventsAfterRenderMainPage();
   }
@@ -199,7 +197,6 @@ export default class MainPage extends Page {
 
     //Carousel switch's
 
-    console.log(carouselContainerElem);
     carouselContainerElem?.addEventListener('click', (event) => {
       if (event.target instanceof HTMLLIElement) {
         if (event.target.dataset.target === 'carouselIndicators') {
@@ -218,14 +215,14 @@ export default class MainPage extends Page {
     //Events by click
     const gamesListContainerElem = document.querySelector('.games-list');
     const linksBall = document.querySelectorAll('.games-list__item');
-    linksBall.forEach((link) => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        console.log(e);
-      });
-    });
+    // linksBall.forEach((link) => {
+    //   link.addEventListener('click', (e) => {
+    //     e.preventDefault();
+    //     console.log(e);
+    //   });
+    // });
     gamesListContainerElem?.addEventListener('click', (event) => {
-      console.log(event.target);
+
       linksBall.forEach((elem) => {
         if (event.target === elem) {
           console.log(elem, elem.getAttribute('data-event')?.toLowerCase());
@@ -236,7 +233,6 @@ export default class MainPage extends Page {
 
   saveToLocalStorage(kindGames: string): void {
     if (kindGames) localStorage.setItem('selected_kind', `${kindGames}`);
-    // console.log(kindGames);
   }
 
   getData() {
@@ -244,5 +240,15 @@ export default class MainPage extends Page {
     this.wordsArr = this.chooseLangComponent.dataArr;
     this.chooseLang = this.chooseLangComponent.determinationLanguage();
     this.wordsChooseArr = this.wordsArr[this.chooseLang];
+  }
+
+  changeLink(el: HTMLElement) {
+    const lang = localStorage.getItem('lang');
+
+    if (lang === '0') {
+      el.setAttribute('href', '#events-page-ru');
+    } else {
+      el.setAttribute('href', '#events-page-en');
+    }
   }
 }
