@@ -1,0 +1,19 @@
+@import 'abstract/variables';
+@import 'abstract/mixins';
+
+@import 'base/fonts';
+@import 'base/normalize';
+@import 'base/base';
+
+@import '../components/view/header/header';
+@import '../components/view/footer/footer';
+@import '../components/view/welcome-popup/welcome-popup';
+@import '../components/view/authorization/authorization';
+@import '../components/view/navPanel/navElements';
+@import '../components/view/pages/notFound/404';
+@import '../components/view/pages/main/mainPage';
+@import '../components/view/pages/main/responsive-main';
+@import '../components/view/pages/events/events';
+@import '../components//view/pages/profile/profile';
+
+@import 'components/buttons';
